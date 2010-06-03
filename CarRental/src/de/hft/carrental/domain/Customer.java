@@ -8,8 +8,6 @@ public final class Customer {
 
 	public static final String CUSTOMER_TYPE_COMPANY = "company";
 
-	public static final String CUSTOMER_TYPE_ADMIN = "admin";
-
 	private String companyName;
 
 	private String customerType;
