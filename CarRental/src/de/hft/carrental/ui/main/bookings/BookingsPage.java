@@ -1,18 +1,19 @@
 package de.hft.carrental.ui.main.bookings;
 
+import de.hft.carrental.ui.Window;
 import de.hft.carrental.ui.WindowPage;
 
 public final class BookingsPage extends WindowPage {
 
-	public BookingsPage() {
-		super(2, 1);
-	}
-
 	private static final long serialVersionUID = 5392467214213264243L;
+
+	public BookingsPage(Window window) {
+		super(window, 2, 1);
+	}
 
 	@Override
 	protected void addSections() {
-		// TODO Auto-generated method stub
+		addSection(new BookingsTableSection(this));
 	}
 
 }
