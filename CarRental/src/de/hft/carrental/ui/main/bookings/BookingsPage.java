@@ -8,7 +8,7 @@ public final class BookingsPage extends WindowPage {
 	private static final long serialVersionUID = 5392467214213264243L;
 
 	public BookingsPage(Window window) {
-		super(window, 2, 1);
+		super(window, 1, 1);
 	}
 
 	@Override

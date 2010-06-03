@@ -21,7 +21,12 @@ public abstract class Window extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle("Car Rental System");
 
-		// Center position on screen.
+		centerOnScreen();
+
+		createLayout();
+	}
+
+	private void centerOnScreen() {
 		Toolkit toolKit = Toolkit.getDefaultToolkit();
 		Dimension screenSize = toolKit.getScreenSize();
 		int screenHeight = screenSize.height;
@@ -30,8 +35,6 @@ public abstract class Window extends JFrame {
 		int y = (screenHeight / 2) - (getMinHeight() / 2);
 		setMinimumSize(new Dimension(getMinWidth(), getMinHeight()));
 		setLocation(x, y);
-
-		createLayout();
 	}
 
 	private void createLayout() {
