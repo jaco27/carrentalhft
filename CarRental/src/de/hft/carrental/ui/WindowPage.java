@@ -7,7 +7,13 @@ public abstract class WindowPage extends Container {
 
 	private static final long serialVersionUID = -7371192976582192750L;
 
-	public WindowPage(int rows, int columns) {
+	private final Window window;
+
+	protected WindowPage(Window window, int rows, int columns) {
+		super();
+
+		this.window = window;
+
 		createLayout(rows, columns);
 		addSections();
 	}
@@ -21,6 +27,10 @@ public abstract class WindowPage extends Container {
 
 	protected final void addSection(WindowPageSection section) {
 		add(section);
+	}
+
+	public final Window getWindow() {
+		return window;
 	}
 
 }

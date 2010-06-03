@@ -12,16 +12,24 @@ public final class SplashWindow extends Window {
 	public SplashWindow() {
 		super();
 
-		loginPage = new LoginPage();
+		loginPage = new LoginPage(this);
 
 		showLoginPage();
-
-		pack();
 		setVisible(true);
 	}
 
 	public void showLoginPage() {
 		switchPageTo(loginPage);
+	}
+
+	@Override
+	protected int getMinHeight() {
+		return 100;
+	}
+
+	@Override
+	protected int getMinWidth() {
+		return 300;
 	}
 
 }
