@@ -16,7 +16,7 @@ public final class Agency {
 
 	@Id
 	@GeneratedValue
-	@Column(name = "ID", updatable = false, nullable = false)
+	@Column(name = "ID", updatable = false, nullable = false, length = 45)
 	public Integer getId() {
 		return id;
 	}
