@@ -67,6 +67,7 @@ public abstract class Window extends JFrame {
 				new Insets(10, 0, 0, 0), GridBagConstraints.FIRST_LINE_START,
 				0, 0));
 		currentPage = page;
+		repaint();
 	}
 
 	protected abstract int getMinWidth();

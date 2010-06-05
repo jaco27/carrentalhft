@@ -24,4 +24,6 @@ public abstract class WindowPageSection extends JPanel {
 		return windowPage;
 	}
 
+	protected abstract void refresh();
+
 }

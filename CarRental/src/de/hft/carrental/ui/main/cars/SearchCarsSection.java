@@ -11,4 +11,9 @@ public final class SearchCarsSection extends SearchSection {
 		super(page, "INSERT TITLE");
 	}
 
+	@Override
+	protected void refresh() {
+		// TODO
+	}
+
 }

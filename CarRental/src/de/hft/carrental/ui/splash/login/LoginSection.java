@@ -62,4 +62,9 @@ public final class LoginSection extends WindowPageSection implements
 		new MainWindow();
 	}
 
+	@Override
+	protected void refresh() {
+		// Nothing to do.
+	}
+
 }
