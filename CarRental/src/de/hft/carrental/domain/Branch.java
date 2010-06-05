@@ -5,6 +5,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -16,7 +17,7 @@ public final class Branch {
 
 	private String name;
 
-	private Integer agencyId;
+	private Agency agency;
 
 	@Id
 	@GeneratedValue
@@ -31,9 +32,9 @@ public final class Branch {
 	}
 
 	@ManyToOne(cascade = CascadeType.ALL, optional = false)
-	@Column(name = "AGENCY_ID", updatable = true, nullable = false)
-	public Integer getAgencyId() {
-		return agencyId;
+	@JoinColumn(name = "AGENCY_ID", updatable = true, nullable = false, referencedColumnName = "ID")
+	public Agency getAgency() {
+		return agency;
 	}
 
 	public void setId(Integer id) {
@@ -44,8 +45,8 @@ public final class Branch {
 		this.name = name;
 	}
 
-	public void setAgencyId(Integer agencyId) {
-		this.agencyId = agencyId;
+	public void setAgency(Agency agency) {
+		this.agency = agency;
 	}
 
 }
