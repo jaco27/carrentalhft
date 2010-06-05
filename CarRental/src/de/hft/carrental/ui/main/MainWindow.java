@@ -24,11 +24,11 @@ import de.hft.carrental.ui.main.personal.PersonalPage;
  */
 public final class MainWindow extends Window implements ActionListener {
 
+	private static final long serialVersionUID = -1064259514784128805L;
+
 	private static final int MINIMUM_WIDTH = 800;
 
 	private static final int MINIMUM_HEIGHT = 600;
-
-	private static final long serialVersionUID = -1064259514784128805L;
 
 	/** This action command triggers the 'Current Bookings' use case. */
 	private static final String AC_CURRENT_BOOKINGS = "current_bookings";

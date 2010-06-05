@@ -8,20 +8,35 @@ import java.awt.event.KeyListener;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 
-import de.hft.carrental.ui.WindowPage;
 import de.hft.carrental.ui.WindowPageSection;
 import de.hft.carrental.ui.main.MainWindow;
 
+/**
+ * This section contains a text field allowing the user to type in his login
+ * name. It also shows a button that allows the user to eventually perform the
+ * login.
+ * 
+ * @author Alexander Weickmann
+ */
 public final class LoginSection extends WindowPageSection implements
 		ActionListener {
 
 	private static final long serialVersionUID = 1064521119735654437L;
 
+	private static final String TITLE = "Login";
+
 	private static final String AC_LOGIN = "login";
 
-	public LoginSection(WindowPage page) {
-		super(page, "Login");
+	/**
+	 * @param loginPage
+	 *            The {@link LoginPage} this section belongs to.
+	 */
+	public LoginSection(LoginPage loginPage) {
+		super(loginPage, TITLE);
+		createContents();
+	}
 
+	private void createContents() {
 		JTextField loginTextField = new JTextField(15);
 		loginTextField.addKeyListener(new KeyListener() {
 			@Override
