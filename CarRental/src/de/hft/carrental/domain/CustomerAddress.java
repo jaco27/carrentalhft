@@ -1,6 +1,6 @@
 package de.hft.carrental.domain;
 
-public final class Address {
+public final class CustomerAddress {
 
 	private String cityName;
 
