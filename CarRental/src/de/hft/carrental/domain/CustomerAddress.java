@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -59,8 +59,8 @@ public final class CustomerAddress {
 		return streetNumber;
 	}
 
-	@OneToOne(cascade = CascadeType.ALL, optional = false, targetEntity = Customer.class)
-	@JoinColumn(name = "CUSTOMER_ID", unique = true, updatable = false, nullable = false)
+	@ManyToOne(cascade = CascadeType.ALL, optional = false, targetEntity = Customer.class)
+	@JoinColumn(name = "CUSTOMER_ID", updatable = false, nullable = false, referencedColumnName = "ID")
 	public Customer getCustomer() {
 		return customer;
 	}

@@ -56,8 +56,4 @@ public final class Branch {
 	public void setAgency(Agency agency) {
 		this.agency = agency;
 	}
-
-	public void setBranchAddress(BranchAddress branchAddress) {
-		this.branchAddress = branchAddress;
-	}
 }
