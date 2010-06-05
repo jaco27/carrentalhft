@@ -25,6 +25,7 @@ public final class LoginSection extends WindowPageSection implements
 
 	private static final String TITLE = "Login";
 
+	/** Action command that is triggered upon activation of the login button. */
 	private static final String AC_LOGIN = "login";
 
 	/**
