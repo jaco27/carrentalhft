@@ -9,7 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -40,7 +39,7 @@ public final class Customer {
 
 	private String surname;
 
-	private CustomerAddress customerAddress;
+	private Set<CustomerAddress> customerAddresses;
 
 	private Set<Booking> bookings;
 
@@ -96,9 +95,9 @@ public final class Customer {
 		return surname;
 	}
 
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "customer", optional = false, orphanRemoval = true, targetEntity = CustomerAddress.class)
-	public CustomerAddress getCustomerAddress() {
-		return customerAddress;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "customer", orphanRemoval = true, targetEntity = CustomerAddress.class)
+	public Set<CustomerAddress> getCustomerAddresses() {
+		return customerAddresses;
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "customer", orphanRemoval = true, targetEntity = Booking.class)
@@ -144,9 +143,5 @@ public final class Customer {
 
 	public void setSurname(String surname) {
 		this.surname = surname;
-	}
-
-	public void setCustomerAddress(CustomerAddress customerAddress) {
-		this.customerAddress = customerAddress;
 	}
 }
