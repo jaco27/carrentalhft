@@ -15,7 +15,7 @@ public final class SplashWindow extends Window {
 
 	private static final int MINIMUM_WIDTH = 300;
 
-	private static final int MINIMUM_HEIGHT = 100;
+	private static final int MINIMUM_HEIGHT = 120;
 
 	private LoginPage loginPage;
 

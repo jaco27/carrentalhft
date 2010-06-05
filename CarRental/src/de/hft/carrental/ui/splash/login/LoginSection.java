@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -39,7 +40,7 @@ public final class LoginSection extends WindowPageSection implements
 	/** Action command that is triggered upon activation of the login button. */
 	private static final String AC_LOGIN = "login";
 
-	private JTextField loginTextField = new JTextField(15);
+	private JTextField loginTextField;
 
 	/**
 	 * @param loginPage
@@ -51,6 +52,7 @@ public final class LoginSection extends WindowPageSection implements
 	}
 
 	private void createContents() {
+		loginTextField = new JTextField(18);
 		loginTextField.addKeyListener(new KeyListener() {
 			@Override
 			public void keyPressed(KeyEvent e) {
@@ -74,6 +76,7 @@ public final class LoginSection extends WindowPageSection implements
 		JButton loginButton = new JButton("Login!");
 		loginButton.setActionCommand(AC_LOGIN);
 		loginButton.addActionListener(this);
+		loginButton.setIcon(new ImageIcon("images/login.png"));
 		add(loginButton);
 	}
 
