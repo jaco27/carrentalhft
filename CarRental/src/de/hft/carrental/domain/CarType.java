@@ -1,5 +1,13 @@
 package de.hft.carrental.domain;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "CAR_TYPE")
 public final class CarType {
 
 	private Boolean automatic;
@@ -12,22 +20,29 @@ public final class CarType {
 
 	private String type;
 
+	@Column(name = "AUTOMATIC", updatable = true, nullable = false)
 	public Boolean getAutomatic() {
 		return automatic;
 	}
 
+	@Id
+	@GeneratedValue
+	@Column(name = "ID", updatable = false, nullable = false)
 	public Integer getId() {
 		return id;
 	}
 
+	@Column(name = "NAME", updatable = true, nullable = false)
 	public String getName() {
 		return name;
 	}
 
+	@Column(name = "PRODUCER", updatable = true, nullable = false)
 	public String getProducer() {
 		return producer;
 	}
 
+	@Column(name = "TYPE", updatable = true, nullable = false)
 	public String getType() {
 		return type;
 	}
