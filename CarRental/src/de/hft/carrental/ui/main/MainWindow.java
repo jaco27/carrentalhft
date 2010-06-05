@@ -44,18 +44,18 @@ public final class MainWindow extends Window implements ActionListener {
 	/** This action command triggers the logout. */
 	private static final String AC_LOGOUT = "logout";
 
-	private CurrentBookingsPage currentBookingsPage;
+	private final CurrentBookingsPage currentBookingsPage;
 
-	private CarsPage searchCarsPage;
+	private final CarsPage searchCarsPage;
 
-	private PersonalPage editPersonalDataPage;
+	private final PersonalPage editPersonalDataPage;
 
-	private Customer user;
+	private Customer loggedInUser;
 
 	public MainWindow(Customer user) {
 		super();
 
-		this.user = user;
+		loggedInUser = user;
 
 		currentBookingsPage = new CurrentBookingsPage(this);
 		searchCarsPage = new CarsPage(this);
@@ -140,11 +140,16 @@ public final class MainWindow extends Window implements ActionListener {
 		}
 	}
 
+	public Customer getLoggedInUser() {
+		return loggedInUser;
+	}
+
 	/**
 	 * Logs the current user out and shows the login screen yet again.
 	 */
 	private void logout() {
 		// TODO MR: Should logout the user and show login screen instead.
+		loggedInUser = null;
 		System.exit(0);
 	}
 
