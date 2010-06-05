@@ -2,6 +2,7 @@ package de.hft.carrental.domain;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,6 +20,8 @@ public final class Agency {
 
 	private Set<Branch> branches;
 
+	private Set<Booking> bookings;
+
 	@Id
 	@GeneratedValue
 	@Column(name = "ID", updatable = false, nullable = false, length = 45)
@@ -31,9 +34,14 @@ public final class Agency {
 		return name;
 	}
 
-	@OneToMany(mappedBy = "agency", orphanRemoval = true, targetEntity = Branch.class)
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "agency", orphanRemoval = true, targetEntity = Branch.class)
 	public Set<Branch> getBranches() {
 		return branches;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "agency", orphanRemoval = true, targetEntity = Booking.class)
+	public Set<Booking> getBookings() {
+		return bookings;
 	}
 
 	public void setId(Integer id) {

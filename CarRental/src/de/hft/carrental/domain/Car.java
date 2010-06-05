@@ -1,11 +1,16 @@
 package de.hft.carrental.domain;
 
 import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -21,6 +26,12 @@ public final class Car {
 	private Integer id;
 
 	private String registrationNumber;
+
+	private CarType carType;
+
+	private Branch branch;
+
+	private Set<Booking> bookings;
 
 	@Column(name = "BASE_PRICE_PER_DAY", updatable = true, nullable = false)
 	public Float getBasePricePerDay() {
@@ -49,6 +60,23 @@ public final class Car {
 		return registrationNumber;
 	}
 
+	@ManyToOne(cascade = CascadeType.ALL, optional = false, targetEntity = CarType.class)
+	@JoinColumn(name = "CAR_TYPE_ID", updatable = false, nullable = false, referencedColumnName = "ID")
+	public CarType getCarType() {
+		return carType;
+	}
+
+	@ManyToOne(cascade = CascadeType.ALL, optional = false, targetEntity = Branch.class)
+	@JoinColumn(name = "BRANCH_ID", updatable = true, nullable = false, referencedColumnName = "ID")
+	public Branch getBranch() {
+		return branch;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "car", targetEntity = Booking.class)
+	public Set<Booking> getBookings() {
+		return bookings;
+	}
+
 	public void setBasePricePerDay(Float basePricePerDay) {
 		this.basePricePerDay = basePricePerDay;
 	}
@@ -69,4 +97,11 @@ public final class Car {
 		this.registrationNumber = registrationNumber;
 	}
 
+	public void setCarType(CarType carType) {
+		this.carType = carType;
+	}
+
+	public void setBranch(Branch branch) {
+		this.branch = branch;
+	}
 }
