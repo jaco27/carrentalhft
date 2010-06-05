@@ -2,6 +2,14 @@ package de.hft.carrental.domain;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "CUSTOMER")
 public final class Customer {
 
 	public static final String CUSTOMER_TYPE_PRIVATE = "private";
@@ -28,42 +36,54 @@ public final class Customer {
 
 	private String surname;
 
+	@Column(name = "COMPANY_NAME", updatable = true, nullable = true)
 	public String getCompanyName() {
 		return companyName;
 	}
 
+	@Column(name = "CUSTOMER_TYPE", updatable = true, nullable = false)
 	public String getCustomerType() {
 		return customerType;
 	}
 
+	@Column(name = "DATE_OF_BIRTH", updatable = true, nullable = true)
 	public Date getDateOfBirth() {
 		return dateOfBirth;
 	}
 
+	@Column(name = "EMAIL", updatable = true, nullable = false, length = 45)
 	public String getEmail() {
 		return email;
 	}
 
+	@Column(name = "FIRST_NAME", updatable = true, nullable = true, length = 45)
 	public String getFirstName() {
 		return firstName;
 	}
 
+	@Id
+	@GeneratedValue
+	@Column(name = "ID", updatable = false, nullable = false)
 	public Integer getId() {
 		return id;
 	}
 
+	@Column(name = "LOGIN_NAME", updatable = false, nullable = false, length = 45)
 	public String getLoginName() {
 		return loginName;
 	}
 
+	@Column(name = "PASSWORD", updatable = true, nullable = false, length = 45)
 	public String getPassword() {
 		return password;
 	}
 
+	@Column(name = "REGISTER_DATE", updatable = false, nullable = false)
 	public Date getRegisterDate() {
 		return registerDate;
 	}
 
+	@Column(name = "SURNAME", updatable = true, nullable = true, length = 45)
 	public String getSurname() {
 		return surname;
 	}

@@ -18,7 +18,7 @@ public final class Booking {
 
 	private Date returnDate;
 
-	@Column(name = "BOOKING_DATE", nullable = false)
+	@Column(name = "BOOKING_DATE", updatable = true, nullable = false)
 	public Date getBookingDate() {
 		return bookingDate;
 	}
