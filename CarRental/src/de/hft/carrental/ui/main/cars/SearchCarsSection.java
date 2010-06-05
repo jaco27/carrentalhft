@@ -3,6 +3,7 @@ package de.hft.carrental.ui.main.cars;
 import de.hft.carrental.ui.WindowPage;
 import de.hft.carrental.ui.main.SearchSection;
 
+//TODO RM, PS: Class yet to be implemented.
 public final class SearchCarsSection extends SearchSection {
 
 	private static final long serialVersionUID = -860724473744347648L;
@@ -13,7 +14,7 @@ public final class SearchCarsSection extends SearchSection {
 
 	@Override
 	protected void refresh() {
-		// TODO
+		// TODO RM, PS: Method yet to be implemented.
 	}
 
 }
