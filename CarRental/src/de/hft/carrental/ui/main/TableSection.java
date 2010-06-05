@@ -6,14 +6,34 @@ import javax.swing.table.DefaultTableModel;
 import de.hft.carrental.ui.WindowPage;
 import de.hft.carrental.ui.WindowPageSection;
 
+/**
+ * This abstract class provides a section that contains a table. This table can
+ * be configured as necessary by subclasses, for example which columns the table
+ * has.
+ * 
+ * @author Alexander Weickmann
+ */
 public abstract class TableSection extends WindowPageSection {
 
 	private static final long serialVersionUID = 8789403383980546612L;
 
-	private JTable table;
+	/** The Swing table UI widget. */
+	private final JTable table;
 
-	private DefaultTableModel tableModel;
+	/** The table model that manages the data of the table. */
+	private final DefaultTableModel tableModel;
 
+	/**
+	 * @param page
+	 *            The window page this section belongs to.
+	 * @param title
+	 *            The title for this section that will be shown in the title
+	 *            area of the section.
+	 * @param columnNames
+	 *            The names of the columns this table shall have.
+	 * @param columnWidths
+	 *            The width of each column.
+	 */
 	protected TableSection(WindowPage page, String title, String[] columnNames,
 			int[] columnWidths) {
 
@@ -31,10 +51,20 @@ public abstract class TableSection extends WindowPageSection {
 		add(table);
 	}
 
+	/**
+	 * Clears the table by removing all data from the table so that it is empty
+	 * after a call to this operation.
+	 */
 	protected final void clearTable() {
 		tableModel.getDataVector().clear();
 	}
 
+	/**
+	 * Adds one row of data to the table.
+	 * 
+	 * @param rowData
+	 *            The array containing the row data.
+	 */
 	protected final void addDataRow(Object[] rowData) {
 		tableModel.addRow(rowData);
 	}
