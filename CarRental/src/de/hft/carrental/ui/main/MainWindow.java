@@ -28,9 +28,9 @@ public final class MainWindow extends Window implements ActionListener {
 
 	private static final long serialVersionUID = -1064259514784128805L;
 
-	private static final int MINIMUM_WIDTH = 800;
+	private static final int MINIMUM_WIDTH = 940;
 
-	private static final int MINIMUM_HEIGHT = 600;
+	private static final int MINIMUM_HEIGHT = 500;
 
 	/** This action command triggers the 'Current Bookings' use case. */
 	private static final String AC_CURRENT_BOOKINGS = "current_bookings";
