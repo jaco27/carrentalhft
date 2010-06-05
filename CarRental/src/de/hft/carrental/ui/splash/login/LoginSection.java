@@ -69,23 +69,18 @@ public final class LoginSection extends WindowPageSection implements
 	public void actionPerformed(ActionEvent e) {
 		String command = e.getActionCommand();
 		if (command.equals(AC_LOGIN)) {
-			boolean loginSuccess = performLogin();
-			if (loginSuccess) {
-				getWindowPage().getWindow().setVisible(false);
-				new MainWindow();
-			} else {
-				// TODO AW: Display error message somewhere.
-			}
+			performLogin();
 		}
 	}
 
 	/**
-	 * Performs the login. Returns <tt>true</tt> if the user is valid,
-	 * <tt>false</tt> otherwise.
+	 * Performs the login. Shows the main window on success and displays an
+	 * appropriate error message on failure.
 	 */
-	private boolean performLogin() {
+	private void performLogin() {
 		// TODO MR: Finish login.
-		return true;
+		getWindowPage().getWindow().setVisible(false);
+		new MainWindow();
 	}
 
 	@Override
