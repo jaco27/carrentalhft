@@ -9,7 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import de.hft.carrental.ui.Window;
-import de.hft.carrental.ui.main.bookings.BookingsPage;
+import de.hft.carrental.ui.main.bookings.CurrentBookingsPage;
 import de.hft.carrental.ui.main.cars.CarsPage;
 import de.hft.carrental.ui.main.personal.PersonalPage;
 
@@ -42,7 +42,7 @@ public final class MainWindow extends Window implements ActionListener {
 	/** This action command triggers the logout. */
 	private static final String AC_LOGOUT = "logout";
 
-	private BookingsPage currentBookingsPage;
+	private CurrentBookingsPage currentBookingsPage;
 
 	private CarsPage searchCarsPage;
 
@@ -51,7 +51,7 @@ public final class MainWindow extends Window implements ActionListener {
 	public MainWindow() {
 		super();
 
-		currentBookingsPage = new BookingsPage(this);
+		currentBookingsPage = new CurrentBookingsPage(this);
 		searchCarsPage = new CarsPage(this);
 		editPersonalDataPage = new PersonalPage(this);
 
@@ -132,7 +132,7 @@ public final class MainWindow extends Window implements ActionListener {
 	 * Logs the current user out and shows the login screen yet again.
 	 */
 	private void logout() {
-		// TODO Should logout and show login screen instead.
+		// TODO MR: Should logout the user and show login screen instead.
 		System.exit(0);
 	}
 

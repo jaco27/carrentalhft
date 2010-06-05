@@ -3,6 +3,7 @@ package de.hft.carrental.ui.main.cars;
 import de.hft.carrental.ui.Window;
 import de.hft.carrental.ui.WindowPage;
 
+// TODO RM, PS: Class yet to be implemented.
 public final class CarsPage extends WindowPage {
 
 	private static final long serialVersionUID = 8416397855771759503L;
