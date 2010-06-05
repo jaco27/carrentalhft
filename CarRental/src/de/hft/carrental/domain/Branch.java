@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -18,6 +19,8 @@ public final class Branch {
 	private String name;
 
 	private Agency agency;
+
+	private BranchAddress branchAddress;
 
 	@Id
 	@GeneratedValue
@@ -37,6 +40,11 @@ public final class Branch {
 		return agency;
 	}
 
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "branch", optional = false, orphanRemoval = true, targetEntity = BranchAddress.class)
+	public BranchAddress getBranchAddress() {
+		return branchAddress;
+	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
@@ -49,4 +57,7 @@ public final class Branch {
 		this.agency = agency;
 	}
 
+	public void setBranchAddress(BranchAddress branchAddress) {
+		this.branchAddress = branchAddress;
+	}
 }

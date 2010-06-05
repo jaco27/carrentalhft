@@ -1,9 +1,12 @@
 package de.hft.carrental.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -21,6 +24,8 @@ public final class CustomerAddress {
 	private String postalCode;
 
 	private String streetNumber;
+
+	private Customer customer;
 
 	@Column(name = "CITY_NAME", updatable = true, nullable = false, length = 45)
 	public String getCityName() {
@@ -54,6 +59,12 @@ public final class CustomerAddress {
 		return streetNumber;
 	}
 
+	@OneToOne(cascade = CascadeType.ALL, optional = false, targetEntity = Customer.class)
+	@JoinColumn(name = "CUSTOMER_ID", unique = true, updatable = false, nullable = false)
+	public Customer getCustomer() {
+		return customer;
+	}
+
 	public void setCityName(String cityName) {
 		this.cityName = cityName;
 	}
@@ -76,6 +87,10 @@ public final class CustomerAddress {
 
 	public void setStreetNumber(String streetNumber) {
 		this.streetNumber = streetNumber;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
 
 }

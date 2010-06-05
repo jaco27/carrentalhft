@@ -1,11 +1,15 @@
 package de.hft.carrental.domain;
 
 import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -35,6 +39,10 @@ public final class Customer {
 	private Date registerDate;
 
 	private String surname;
+
+	private CustomerAddress customerAddress;
+
+	private Set<Booking> bookings;
 
 	@Column(name = "COMPANY_NAME", updatable = true, nullable = true)
 	public String getCompanyName() {
@@ -88,6 +96,16 @@ public final class Customer {
 		return surname;
 	}
 
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "customer", optional = false, orphanRemoval = true, targetEntity = CustomerAddress.class)
+	public CustomerAddress getCustomerAddress() {
+		return customerAddress;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "customer", orphanRemoval = true, targetEntity = Booking.class)
+	public Set<Booking> getBookings() {
+		return bookings;
+	}
+
 	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
 	}
@@ -128,4 +146,7 @@ public final class Customer {
 		this.surname = surname;
 	}
 
+	public void setCustomerAddress(CustomerAddress customerAddress) {
+		this.customerAddress = customerAddress;
+	}
 }
