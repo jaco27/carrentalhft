@@ -31,7 +31,7 @@ public final class Agency {
 		return name;
 	}
 
-	@OneToMany(mappedBy = "ID", orphanRemoval = true, targetEntity = Branch.class)
+	@OneToMany(mappedBy = "agency", orphanRemoval = true, targetEntity = Branch.class)
 	public Set<Branch> getBranches() {
 		return branches;
 	}
