@@ -5,6 +5,10 @@ import de.hft.carrental.ui.splash.login.LoginPage;
 
 public final class SplashWindow extends Window {
 
+	private static final int MINIMUM_WIDTH = 300;
+
+	private static final int MINIMUM_HEIGHT = 100;
+
 	private static final long serialVersionUID = -5210789835246067684L;
 
 	private LoginPage loginPage;
@@ -24,12 +28,12 @@ public final class SplashWindow extends Window {
 
 	@Override
 	protected int getMinHeight() {
-		return 100;
+		return MINIMUM_HEIGHT;
 	}
 
 	@Override
 	protected int getMinWidth() {
-		return 300;
+		return MINIMUM_WIDTH;
 	}
 
 }
