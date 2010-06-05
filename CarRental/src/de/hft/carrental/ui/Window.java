@@ -10,16 +10,37 @@ import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+/**
+ * This class represents an application window. In addition to a normal
+ * {@link JFrame} it uses the native look and feel of the used OS. The window
+ * will also be positioned in the center of the screen by default. The title of
+ * the window as well as the default close operation will be already set.
+ * <p>
+ * Furthermore, a grid layout is assigned to the window. A convenience method is
+ * offered to subclasses that enables rapid creation of
+ * {@link GridBagConstraints}.
+ * <p>
+ * Also, the concept of a current {@link WindowPage} is introduced. Using the
+ * method {@link #switchPageTo(WindowPage)} subclasses can switch to another
+ * window page at any time.
+ * 
+ * @author Alexander Weickmann
+ */
 public abstract class Window extends JFrame {
+
+	private static final String WINDOW_TITLE = "Car Rental System";
 
 	private static final long serialVersionUID = 5050185403888769434L;
 
+	/**
+	 * The {@link WindowPage} that is currently displayed.
+	 */
 	private WindowPage currentPage;
 
 	protected Window() {
 		setNativeLookAndFeel();
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setTitle("Car Rental System");
+		setTitle(WINDOW_TITLE);
 
 		centerOnScreen();
 
@@ -42,6 +63,34 @@ public abstract class Window extends JFrame {
 		setLayout(layout);
 	}
 
+	/**
+	 * Convenience method provided to subclasses allowing for rapid
+	 * {@link GridBagConstraints} creation.
+	 * 
+	 * @param gridx
+	 *            The zero-based x-position of the component inside the grid.
+	 * @param gridy
+	 *            The zero-based y-position of the component inside the grid.
+	 * @param weightx
+	 *            Value between 0.0 and 1.0 indicating how much priority the
+	 *            component has when it comes to filling up empty horizontal
+	 *            space.
+	 * @param weighty
+	 *            Value between 0.0 and 1.0 indicating how much priority the
+	 *            component has when it comes to filling up empty vertical
+	 *            space.
+	 * @param fill
+	 *            Indicates whether additional space should be used by the
+	 *            component (both, horizontal, vertical or none).
+	 * @param insets
+	 *            Specifies the external padding of the component.
+	 * @param anchor
+	 *            Specifies where to anchor the component.
+	 * @param ipadx
+	 *            Specifies the internal padding in x direction.
+	 * @param ipady
+	 *            Specifies the internal padding in y direction.
+	 */
 	protected final GridBagConstraints createGridBagConstraints(int gridx,
 			int gridy, int weightx, int weighty, int fill, Insets insets,
 			int anchor, int ipadx, int ipady) {
@@ -59,6 +108,13 @@ public abstract class Window extends JFrame {
 		return constraints;
 	}
 
+	/**
+	 * Switches to the provided {@link WindowPage}. Causes the window to be
+	 * repainted so the contents of the new page are shown immediately.
+	 * 
+	 * @param page
+	 *            The {@link WindowPage} to switch to.
+	 */
 	protected final void switchPageTo(WindowPage page) {
 		if (currentPage != null) {
 			remove(currentPage);
@@ -70,8 +126,14 @@ public abstract class Window extends JFrame {
 		repaint();
 	}
 
+	/**
+	 * Must return the minimum width this window shall have.
+	 */
 	protected abstract int getMinWidth();
 
+	/**
+	 * Must return the minimum height this window shall have.
+	 */
 	protected abstract int getMinHeight();
 
 	private void setNativeLookAndFeel() {
