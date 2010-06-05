@@ -24,6 +24,10 @@ import de.hft.carrental.ui.main.personal.PersonalPage;
  */
 public final class MainWindow extends Window implements ActionListener {
 
+	private static final int MINIMUM_WIDTH = 800;
+
+	private static final int MINIMUM_HEIGHT = 600;
+
 	private static final long serialVersionUID = -1064259514784128805L;
 
 	/** This action command triggers the 'Current Bookings' use case. */
@@ -102,12 +106,12 @@ public final class MainWindow extends Window implements ActionListener {
 
 	@Override
 	protected int getMinHeight() {
-		return 600;
+		return MINIMUM_HEIGHT;
 	}
 
 	@Override
 	protected int getMinWidth() {
-		return 800;
+		return MINIMUM_WIDTH;
 	}
 
 	@Override
