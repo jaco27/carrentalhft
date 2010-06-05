@@ -11,4 +11,9 @@ public final class GeneralInfoSection extends WindowPageSection {
 		super(page, "INSERT TITLE");
 	}
 
+	@Override
+	protected void refresh() {
+		// TODO
+	}
+
 }
