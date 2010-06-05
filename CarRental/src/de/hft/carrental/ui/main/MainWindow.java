@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import de.hft.carrental.domain.Customer;
 import de.hft.carrental.ui.Window;
 import de.hft.carrental.ui.main.bookings.CurrentBookingsPage;
 import de.hft.carrental.ui.main.cars.CarsPage;
@@ -48,8 +49,12 @@ public final class MainWindow extends Window implements ActionListener {
 
 	private PersonalPage editPersonalDataPage;
 
-	public MainWindow() {
+	private Customer user;
+
+	public MainWindow(Customer user) {
 		super();
+
+		this.user = user;
 
 		currentBookingsPage = new CurrentBookingsPage(this);
 		searchCarsPage = new CarsPage(this);
