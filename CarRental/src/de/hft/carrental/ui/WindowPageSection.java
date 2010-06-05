@@ -1,5 +1,7 @@
 package de.hft.carrental.ui;
 
+import java.awt.Font;
+
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
@@ -35,6 +37,7 @@ public abstract class WindowPageSection extends JPanel {
 
 	private void createBorder(String title) {
 		TitledBorder border = BorderFactory.createTitledBorder(title + ":");
+		border.setTitleFont(new Font("Arial", Font.BOLD, 11));
 		setBorder(border);
 	}
 

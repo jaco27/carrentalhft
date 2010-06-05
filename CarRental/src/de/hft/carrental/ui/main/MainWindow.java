@@ -5,6 +5,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -72,24 +73,30 @@ public final class MainWindow extends Window implements ActionListener {
 	private void createMenu() {
 		JPanel menuPanel = new JPanel();
 
-		JButton bookingsButton = new JButton("Current Bookings");
-		bookingsButton.setActionCommand(AC_CURRENT_BOOKINGS);
-		bookingsButton.addActionListener(this);
-		menuPanel.add(bookingsButton);
+		JButton currentBookingsButton = new JButton("Current Bookings");
+		currentBookingsButton.setActionCommand(AC_CURRENT_BOOKINGS);
+		currentBookingsButton.addActionListener(this);
+		currentBookingsButton.setIcon(new ImageIcon(
+				"images/current_bookings.png"));
+		menuPanel.add(currentBookingsButton);
 
-		JButton carsButton = new JButton("Search Cars");
-		carsButton.setActionCommand(AC_SEARCH_CARS);
-		carsButton.addActionListener(this);
-		menuPanel.add(carsButton);
+		JButton searchCarsButton = new JButton("Search Cars");
+		searchCarsButton.setActionCommand(AC_SEARCH_CARS);
+		searchCarsButton.addActionListener(this);
+		searchCarsButton.setIcon(new ImageIcon("images/search_cars.png"));
+		menuPanel.add(searchCarsButton);
 
-		JButton personalButton = new JButton("Edit Personal Data");
-		personalButton.setActionCommand(AC_EDIT_PERSONAL_DATA);
-		personalButton.addActionListener(this);
-		menuPanel.add(personalButton);
+		JButton editPersonalDataButton = new JButton("Edit Personal Data");
+		editPersonalDataButton.setActionCommand(AC_EDIT_PERSONAL_DATA);
+		editPersonalDataButton.addActionListener(this);
+		editPersonalDataButton.setIcon(new ImageIcon(
+				"images/edit_personal_data.png"));
+		menuPanel.add(editPersonalDataButton);
 
 		JButton logoutButton = new JButton("Logout");
 		logoutButton.setActionCommand(AC_LOGOUT);
 		logoutButton.addActionListener(this);
+		logoutButton.setIcon(new ImageIcon("images/logout.png"));
 		menuPanel.add(logoutButton);
 
 		add(menuPanel, createGridBagConstraints(0, 0, 1, 0,
