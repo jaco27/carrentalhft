@@ -42,7 +42,14 @@ public final class GeneralInfoSection extends MainWindowPageSection {
 		super(page, "Personal details");
 		setLayout(new MigLayout("", "[grow][grow][grow][grow]", ""));
 		user = getLoggedInUser();
-		createContents();
+
+		if (user.getCustomerType().equals(Customer.CUSTOMER_TYPE_PRIVATE)) {
+			createPrivateUserContents();
+		} else {
+			createCompanyUserContents();
+		}
+
+		refresh();
 
 		saveChangesButton.addActionListener(new ActionListener() {
 
@@ -51,43 +58,6 @@ public final class GeneralInfoSection extends MainWindowPageSection {
 				saveChanges();
 			}
 		});
-	}
-
-	private void createContents() {
-
-		if (user.getCustomerType().equals(Customer.CUSTOMER_TYPE_PRIVATE)) {
-			add(loginLabel);
-			add(loginField, "growx");
-			loginField.setEditable(false);
-			add(firstNameLabel);
-			add(firstNameField, "growx, wrap");
-
-			add(registerDateLabel);
-			add(registerField, "growx");
-			add(surNameLabel);
-			add(surNameField, "growx, wrap");
-
-			add(emailLabel);
-			add(emailField, "growx");
-			add(birthDateLabel);
-			add(birthDateField, "growx, wrap");
-
-			add(saveChangesButton, "span 4, align right");
-		} else {
-			// TODO Finish layouting
-			add(loginLabel);
-			add(loginField);
-			loginField.setEditable(false);
-
-			add(registerDateLabel);
-			add(registerField);
-			registerField.setEditable(false);
-
-			add(companyNameLabel);
-			add(companyNameField);
-		}
-
-		refresh();
 	}
 
 	@Override
@@ -105,5 +75,46 @@ public final class GeneralInfoSection extends MainWindowPageSection {
 
 	private void saveChanges() {
 		user.setEmail(emailField.getText());
+	}
+
+	private void createPrivateUserContents() {
+		add(loginLabel);
+		add(loginField, "growx");
+		loginField.setEditable(false);
+		add(firstNameLabel);
+		add(firstNameField, "growx, wrap");
+		firstNameField.setEditable(false);
+
+		add(registerDateLabel);
+		add(registerField, "growx");
+		registerField.setEditable(false);
+		add(surNameLabel);
+		add(surNameField, "growx, wrap");
+		surNameField.setEditable(false);
+
+		add(emailLabel);
+		add(emailField, "growx");
+		add(birthDateLabel);
+		add(birthDateField, "growx, wrap");
+		birthDateField.setEditable(false);
+
+		add(saveChangesButton, "span 4, align right");
+	}
+
+	private void createCompanyUserContents() {
+		add(loginLabel, "span 1 3, growx");
+		add(loginField);
+		loginField.setEditable(false);
+
+		add(registerDateLabel);
+		add(registerField, "growx");
+		registerField.setEditable(false);
+
+		add(emailLabel);
+		add(emailField, "growx, wrap");
+
+		add(companyNameLabel);
+		add(companyNameField, "growx");
+		companyNameField.setEditable(false);
 	}
 }
