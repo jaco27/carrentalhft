@@ -120,7 +120,7 @@ public final class LoginSection extends WindowPageSection implements
 				Transaction tr = session.beginTransaction();
 
 				Object result = session.createQuery(
-						"from CUSTOMER where LOGIN_NAME = '" + username + "'")
+						"from Customer where loginName = '" + username + "'")
 						.uniqueResult();
 
 				if (result == null) {
