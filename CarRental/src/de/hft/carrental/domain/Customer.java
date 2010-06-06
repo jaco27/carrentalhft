@@ -146,10 +146,20 @@ public final class Customer {
 	}
 
 	public void setBookings(Set<Booking> bookings) {
-		this.bookings = bookings;
+		if (this.bookings == null) {
+			this.bookings = bookings;
+		} else {
+			this.bookings.clear();
+			this.bookings.addAll(bookings);
+		}
 	}
 
 	public void setCustomerAddresses(Set<CustomerAddress> customerAddresses) {
-		this.customerAddresses = customerAddresses;
+		if (this.customerAddresses == null) {
+			this.customerAddresses = customerAddresses;
+		} else {
+			this.customerAddresses.clear();
+			this.customerAddresses.addAll(customerAddresses);
+		}
 	}
 }
