@@ -107,6 +107,7 @@ public final class LoginSection extends WindowPageSection implements
 
 		String query = "from Customer where loginName = '" + username + "'";
 		Object result = session.createQuery(query).uniqueResult();
+
 		if (result == null) {
 			showErrorDialog("Username not found.");
 			return;
@@ -116,7 +117,10 @@ public final class LoginSection extends WindowPageSection implements
 		tr.commit();
 
 		getWindowPage().getWindow().setVisible(false);
-		new MainWindow(user);
+		new MainWindow(user, session);
+
+		session.flush();
+		session.close();
 	}
 
 	@Override
