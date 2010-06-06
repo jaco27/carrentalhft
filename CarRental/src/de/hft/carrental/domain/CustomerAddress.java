@@ -25,6 +25,8 @@ public final class CustomerAddress {
 
 	private String streetNumber;
 
+	private String streetName;
+
 	private Customer customer;
 
 	@Column(name = "CITY_NAME", updatable = true, nullable = false, length = 45)
@@ -59,6 +61,11 @@ public final class CustomerAddress {
 		return streetNumber;
 	}
 
+	@Column(name = "STREET_NAME", updatable = true, nullable = false, length = 45)
+	public String getStreetName() {
+		return streetName;
+	}
+
 	@ManyToOne(cascade = CascadeType.ALL, optional = false, targetEntity = Customer.class)
 	@JoinColumn(name = "CUSTOMER_ID", updatable = false, nullable = false, referencedColumnName = "ID")
 	public Customer getCustomer() {
@@ -87,6 +94,10 @@ public final class CustomerAddress {
 
 	public void setStreetNumber(String streetNumber) {
 		this.streetNumber = streetNumber;
+	}
+
+	public void setStreetName(String streetName) {
+		this.streetName = streetName;
 	}
 
 	public void setCustomer(Customer customer) {

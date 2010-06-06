@@ -31,7 +31,7 @@ public final class MainWindow extends Window implements ActionListener {
 
 	private static final int MINIMUM_WIDTH = 940;
 
-	private static final int MINIMUM_HEIGHT = 500;
+	private static final int MINIMUM_HEIGHT = 400;
 
 	/** This action command triggers the 'Current Bookings' use case. */
 	private static final String AC_CURRENT_BOOKINGS = "current_bookings";
