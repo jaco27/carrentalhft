@@ -40,4 +40,8 @@ public final class AddressesSection extends TableSection {
 			addDataRow(row);
 		}
 	}
+
+	private void saveChanges() {
+		// TODO implement
+	}
 }
