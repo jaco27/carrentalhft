@@ -104,4 +104,8 @@ public final class Car {
 	public void setBranch(Branch branch) {
 		this.branch = branch;
 	}
+
+	public void setBookings(Booking booking) {
+		bookings.add(booking);
+	}
 }

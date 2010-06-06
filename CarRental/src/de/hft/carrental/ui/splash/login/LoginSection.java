@@ -23,7 +23,14 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.AnnotationConfiguration;
 
+import de.hft.carrental.domain.Agency;
+import de.hft.carrental.domain.Booking;
+import de.hft.carrental.domain.Branch;
+import de.hft.carrental.domain.BranchAddress;
+import de.hft.carrental.domain.Car;
+import de.hft.carrental.domain.CarType;
 import de.hft.carrental.domain.Customer;
+import de.hft.carrental.domain.CustomerAddress;
 import de.hft.carrental.ui.WindowPageSection;
 import de.hft.carrental.ui.main.MainWindow;
 
@@ -98,7 +105,15 @@ public final class LoginSection extends WindowPageSection implements
 	 */
 	private void performLogin() {
 
-		AnnotationConfiguration config = new AnnotationConfiguration();
+		// TODO read from external file
+		// TODO reuse configuration/sessionfactory from a global scope
+		AnnotationConfiguration config = new AnnotationConfiguration()
+				.addAnnotatedClass(Agency.class).addAnnotatedClass(
+						Booking.class).addAnnotatedClass(Branch.class)
+				.addAnnotatedClass(BranchAddress.class).addAnnotatedClass(
+						Car.class).addAnnotatedClass(CarType.class)
+				.addAnnotatedClass(Customer.class).addAnnotatedClass(
+						CustomerAddress.class);
 
 		String driver = config.getProperty("hibernate.connection.driver_class");
 		String url = config.getProperty("hibernate.connection.url");
@@ -106,39 +121,34 @@ public final class LoginSection extends WindowPageSection implements
 		String dbpassword = config.getProperty("hibernate.connection.password");
 
 		if (connectionAvailable(driver, url, dbuser, dbpassword)) {
-			boolean loginSuccessful = false;
 			Customer user = null;
 
-			while (!loginSuccessful) {
+			String username = loginTextField.getText();
 
-				String username = loginTextField.getText();
+			SessionFactory sessionFactory = config.buildSessionFactory();
 
-				SessionFactory sessionFactory = config.buildSessionFactory();
+			Session session = sessionFactory.openSession();
 
-				Session session = sessionFactory.openSession();
+			Transaction tr = session.beginTransaction();
 
-				Transaction tr = session.beginTransaction();
+			String query = "from Customer where loginName = '" + username + "'";
 
-				Object result = session.createQuery(
-						"from Customer where loginName = '" + username + "'")
-						.uniqueResult();
+			Object result = session.createQuery(query).uniqueResult();
 
-				if (result == null) {
-					showErrorDialog("Username not found.");
-				} else {
-					user = (Customer) result;
-					loginSuccessful = true;
-				}
-
-				tr.commit();
-				session.close();
+			if (result == null) {
+				showErrorDialog("Username not found.");
+				return;
 			}
+			user = (Customer) result;
+
+			tr.commit();
+			session.close();
 
 			getWindowPage().getWindow().setVisible(false);
 			new MainWindow(user);
-		} else {
-			showErrorDialog("No connection to database.");
+
 		}
+		showErrorDialog("No connection to database.");
 	}
 
 	@Override
