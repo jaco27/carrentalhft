@@ -35,7 +35,7 @@ public final class CurrentBookingsTableSection extends TableSection {
 	@Override
 	protected void refresh() {
 		clearTable();
-		// fillTableWithData();
+		fillTableWithData();
 	}
 
 	private void fillTableWithData() {

@@ -39,7 +39,7 @@ public final class BranchAddress {
 
 	@Id
 	@GeneratedValue
-	@Column(name = "ID", updatable = false, nullable = false)
+	@Column(name = "BRANCH_ID", updatable = false, nullable = false)
 	public Integer getId() {
 		return id;
 	}
