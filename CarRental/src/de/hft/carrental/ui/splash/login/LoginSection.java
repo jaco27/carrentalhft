@@ -17,7 +17,7 @@ import net.miginfocom.swing.MigLayout;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
+import org.hibernate.cfg.AnnotationConfiguration;
 
 import de.hft.carrental.domain.Customer;
 import de.hft.carrental.ui.WindowPageSection;
@@ -99,8 +99,8 @@ public final class LoginSection extends WindowPageSection implements
 		while (!loginSuccessful) {
 			String username = loginTextField.getText();
 
-			SessionFactory sessionFactory = new Configuration().configure()
-					.buildSessionFactory();
+			SessionFactory sessionFactory = new AnnotationConfiguration()
+					.configure().buildSessionFactory();
 
 			Session session = sessionFactory.openSession();
 
