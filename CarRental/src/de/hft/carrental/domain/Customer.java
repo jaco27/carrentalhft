@@ -145,11 +145,11 @@ public final class Customer {
 		this.surname = surname;
 	}
 
-	public void setBookings(Booking booking) {
-		bookings.add(booking);
+	public void setBookings(Set<Booking> bookings) {
+		this.bookings = bookings;
 	}
 
-	public void setCustomerAddresses(CustomerAddress address) {
-		customerAddresses.add(address);
+	public void setCustomerAddresses(Set<CustomerAddress> customerAddresses) {
+		this.customerAddresses = customerAddresses;
 	}
 }

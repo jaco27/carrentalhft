@@ -52,11 +52,11 @@ public final class Agency {
 		this.name = name;
 	}
 
-	public void setBranches(Branch brach) {
-		branches.add(brach);
+	public void setBranches(Set<Branch> branches) {
+		this.branches = branches;
 	}
 
-	public void setBookings(Booking booking) {
-		bookings.add(booking);
+	public void setBookings(Set<Booking> bookings) {
+		this.bookings = bookings;
 	}
 }
