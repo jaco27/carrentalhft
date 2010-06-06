@@ -56,10 +56,10 @@ public final class GeneralInfoSection extends MainWindowPageSection {
 		}
 
 		addListeners();
+
 		Image image = new ImageIcon("images/save.png").getImage();
 		image = image.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
 		saveChangesButton.setIcon(new ImageIcon(image));
-		saveChangesButton.setEnabled(false);
 	}
 
 	@Override
@@ -73,6 +73,8 @@ public final class GeneralInfoSection extends MainWindowPageSection {
 		DateFormat df = DateFormat.getInstance();
 		registerField.setText(df.format(user.getRegisterDate()));
 		birthDateField.setText(df.format(user.getDateOfBirth()));
+
+		saveChangesButton.setEnabled(false);
 	}
 
 	private void saveChanges() {
