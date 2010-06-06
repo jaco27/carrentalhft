@@ -144,4 +144,12 @@ public final class Customer {
 	public void setSurname(String surname) {
 		this.surname = surname;
 	}
+
+	public void setBookings(Booking booking) {
+		bookings.add(booking);
+	}
+
+	public void setCustomerAddresses(CustomerAddress address) {
+		customerAddresses.add(address);
+	}
 }
