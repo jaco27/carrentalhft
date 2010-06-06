@@ -1,7 +1,9 @@
 package de.hft.carrental.ui.main;
 
+import javax.swing.BoxLayout;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 /**
  * This abstract class provides a section that contains a table. This table can
@@ -36,16 +38,27 @@ public abstract class TableSection extends MainWindowPageSection {
 
 		super(page, title);
 
+		createLayout();
+
 		tableModel = new DefaultTableModel();
 		for (String columnName : columnNames) {
 			tableModel.addColumn(columnName);
 		}
 		table = new JTable(tableModel);
+		int columnMargin = 5;
+		table.getColumnModel().setColumnMargin(columnMargin);
 		for (int i = 0; i < columnWidths.length; i++) {
 			table.getColumn(columnNames[i]).setPreferredWidth(columnWidths[i]);
 		}
-		add(table.getTableHeader());
+		JTableHeader tableHeader = table.getTableHeader();
+		tableHeader.getColumnModel().setColumnMargin(columnMargin);
+		add(tableHeader);
 		add(table);
+
+	}
+
+	protected void createLayout() {
+		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 	}
 
 	/**

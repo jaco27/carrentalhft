@@ -14,8 +14,8 @@ public final class CurrentBookingsTableSection extends TableSection {
 
 	private static final long serialVersionUID = 6099129396844699288L;
 
-	private static final int[] COLUMN_WIDTHS = new int[] { 110, 100, 100, 130,
-			140, 150, 170 };
+	private static final int[] COLUMN_WIDTHS = new int[] { 100, 90, 90, 130,
+			130, 160, 190 };
 
 	private static final String[] COLUMN_NAMES = new String[] {
 			"Booking Number", "Booking Date", "Return Date", "Car Type",
@@ -50,8 +50,9 @@ public final class CurrentBookingsTableSection extends TableSection {
 
 			BranchAddress branchAddress = booking.getCar().getBranch()
 					.getBranchAddress();
-			rowData[6] = branchAddress.getPostalCode() + ", "
+			rowData[6] = branchAddress.getPostalCode() + " "
 					+ branchAddress.getCityName() + ", "
+					+ branchAddress.getStreetName() + " "
 					+ branchAddress.getStreetNumber();
 
 			addDataRow(rowData);
