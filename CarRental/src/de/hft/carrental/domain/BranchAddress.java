@@ -23,9 +23,9 @@ public final class BranchAddress {
 
 	private String postalCode;
 
-	private String streetNumber;
-
 	private String streetName;
+
+	private String streetNumber;
 
 	private Branch branch;
 
@@ -56,14 +56,14 @@ public final class BranchAddress {
 		return postalCode;
 	}
 
-	@Column(name = "STREET_NUMBER", updatable = true, nullable = false, length = 5)
-	public String getStreetNumber() {
-		return streetNumber;
-	}
-
 	@Column(name = "STREET_NAME", updatable = true, nullable = false, length = 45)
 	public String getStreetName() {
 		return streetName;
+	}
+
+	@Column(name = "STREET_NUMBER", updatable = true, nullable = false, length = 5)
+	public String getStreetNumber() {
+		return streetNumber;
 	}
 
 	@OneToOne(cascade = CascadeType.ALL, optional = false, targetEntity = Branch.class)
@@ -92,12 +92,12 @@ public final class BranchAddress {
 		this.postalCode = postalCode;
 	}
 
-	public void setStreetNumber(String streetNumber) {
-		this.streetNumber = streetNumber;
-	}
-
 	public void setStreetName(String streetName) {
 		this.streetName = streetName;
+	}
+
+	public void setStreetNumber(String streetNumber) {
+		this.streetNumber = streetNumber;
 	}
 
 	public void setBranch(Branch branch) {
