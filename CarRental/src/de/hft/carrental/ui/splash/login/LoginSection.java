@@ -147,8 +147,9 @@ public final class LoginSection extends WindowPageSection implements
 			getWindowPage().getWindow().setVisible(false);
 			new MainWindow(user);
 
+		} else {
+			showErrorDialog("No connection to database.");
 		}
-		showErrorDialog("No connection to database.");
 	}
 
 	@Override
