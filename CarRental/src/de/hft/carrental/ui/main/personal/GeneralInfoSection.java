@@ -44,7 +44,7 @@ public final class GeneralInfoSection extends MainWindowPageSection {
 
 	protected GeneralInfoSection(MainWindowPage page) {
 		super(page, "Personal details");
-		setLayout(new MigLayout("", "[grow][grow][grow][grow]", ""));
+		setLayout(new MigLayout("", "[][grow][][grow]", ""));
 		user = getLoggedInUser();
 
 		if (user.getCustomerType().equals(Customer.CUSTOMER_TYPE_PRIVATE)) {
@@ -53,17 +53,7 @@ public final class GeneralInfoSection extends MainWindowPageSection {
 			createCompanyUserContents();
 		}
 
-		saveChangesButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				saveChanges();
-				saveChangesButton.setEnabled(false);
-			}
-		});
-
 		addListeners();
-
 		saveChangesButton.setEnabled(false);
 	}
 
@@ -127,6 +117,15 @@ public final class GeneralInfoSection extends MainWindowPageSection {
 
 	private void addListeners() {
 		emailField.addKeyListener(kl);
+
+		saveChangesButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				saveChanges();
+				saveChangesButton.setEnabled(false);
+			}
+		});
 	}
 
 	class FieldEditedListener implements KeyListener {

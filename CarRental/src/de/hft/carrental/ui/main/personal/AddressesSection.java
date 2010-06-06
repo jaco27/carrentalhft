@@ -9,7 +9,7 @@ public final class AddressesSection extends TableSection {
 	private static final long serialVersionUID = -1627894704897348854L;
 
 	protected AddressesSection(MainWindowPage page) {
-		super(page, "INSERT TITLE", new String[] {}, new int[] {});
+		super(page, "Address(es)", new String[] {}, new int[] {});
 	}
 
 	@Override
