@@ -34,7 +34,7 @@ public final class SessionManager {
 	private Session session;
 
 	private SessionManager() {
-		// TODO Read annotation configuration from external config file.
+		// TODO Read annotation configuration from external configuration file.
 		configuration = new AnnotationConfiguration();
 		configuration = configuration.addAnnotatedClass(Agency.class);
 		configuration = configuration.addAnnotatedClass(Booking.class);
