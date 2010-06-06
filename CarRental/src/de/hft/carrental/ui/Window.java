@@ -126,6 +126,7 @@ public abstract class Window extends JFrame {
 
 		currentPage = page;
 		currentPage.refresh();
+		validate();
 		repaint();
 	}
 
