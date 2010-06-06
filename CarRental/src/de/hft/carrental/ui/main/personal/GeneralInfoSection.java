@@ -1,5 +1,7 @@
 package de.hft.carrental.ui.main.personal;
 
+import java.text.DateFormat;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
@@ -74,6 +76,11 @@ public final class GeneralInfoSection extends MainWindowPageSection {
 		firstNameField.setText(user.getFirstName());
 		surNameField.setText(user.getSurname());
 		lastNameField.setText(user.getLoginName());
-	}
+		companyNameField.setText(user.getCompanyName());
+		emailField.setText(user.getEmail());
 
+		DateFormat df = DateFormat.getInstance();
+		registerField.setText(df.format(user.getRegisterDate()));
+		birthDateField.setText(df.format(user.getDateOfBirth()));
+	}
 }
