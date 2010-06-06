@@ -3,6 +3,6 @@
 "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
 	<session-factory>
-		<mapping package="de.hft.carrental" />
+		<mapping package="de.hft.carrental.domain" />
 	</session-factory>
 </hibernate-configuration>
