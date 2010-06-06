@@ -5,6 +5,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -93,65 +96,110 @@ public final class LoginSection extends WindowPageSection implements
 	 * appropriate error message on failure.
 	 */
 	private void performLogin() {
-		boolean loginSuccessful = false;
-		Customer user = null;
+		if (connectionAvailable()) {
+			boolean loginSuccessful = false;
+			Customer user = null;
 
-		while (!loginSuccessful) {
-			String username = loginTextField.getText();
+			while (!loginSuccessful) {
 
-			SessionFactory sessionFactory = new AnnotationConfiguration()
-					.configure().buildSessionFactory();
+				String username = loginTextField.getText();
 
-			Session session = sessionFactory.openSession();
+				AnnotationConfiguration config = new AnnotationConfiguration();
 
-			Transaction tr = session.beginTransaction();
+				SessionFactory sessionFactory = config.buildSessionFactory();
 
-			Object result = session.createQuery(
-					"from CUSTOMER where LOGIN_NAME = '" + username + "'")
-					.uniqueResult();
+				Session session = sessionFactory.openSession();
 
-			if (result == null) {
-				final JDialog errorDialog = new JDialog();
+				Transaction tr = session.beginTransaction();
 
-				MigLayout layout = new MigLayout();
+				Object result = session.createQuery(
+						"from CUSTOMER where LOGIN_NAME = '" + username + "'")
+						.uniqueResult();
 
-				errorDialog.setLayout(layout);
-				errorDialog.setModalityType(ModalityType.APPLICATION_MODAL);
+				if (result == null) {
+					showLoginErrorDialog();
+				} else {
+					user = (Customer) result;
+					loginSuccessful = true;
+				}
 
-				JLabel errorLabel = new JLabel("Username not found!");
-				errorDialog.add(errorLabel, "spanx, wrap");
-
-				final JButton closeButton = new JButton(
-						"Let me try this again...");
-				closeButton.addActionListener(new ActionListener() {
-
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						errorDialog.setVisible(false);
-					}
-				});
-				errorDialog.add(closeButton);
-
-				errorDialog.pack();
-				errorDialog.setResizable(false);
-				errorDialog.setVisible(true);
-			} else {
-				user = (Customer) result;
-				loginSuccessful = true;
+				tr.commit();
+				session.close();
 			}
 
-			tr.commit();
-			session.close();
+			getWindowPage().getWindow().setVisible(false);
+			new MainWindow(user);
+		} else {
+			showConnectionErrorDialog();
 		}
-
-		getWindowPage().getWindow().setVisible(false);
-		new MainWindow(user);
-
 	}
 
 	@Override
 	protected void refresh() {
 		// Nothing to do.
+	}
+
+	private void showLoginErrorDialog() {
+		final JDialog errorDialog = new JDialog();
+
+		MigLayout layout = new MigLayout();
+
+		errorDialog.setLayout(layout);
+		errorDialog.setModalityType(ModalityType.APPLICATION_MODAL);
+
+		JLabel errorLabel = new JLabel("Username not found!");
+		errorDialog.add(errorLabel, "spanx, wrap");
+
+		final JButton closeButton = new JButton("Let me try this again...");
+		closeButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				errorDialog.setVisible(false);
+			}
+		});
+		errorDialog.add(closeButton);
+
+		errorDialog.pack();
+		errorDialog.setResizable(false);
+		errorDialog.setVisible(true);
+
+		loginTextField.setText("");
+	}
+
+	private void showConnectionErrorDialog() {
+		// TODO implement
+	}
+
+	private boolean connectionAvailable() {
+		Connection con = null;
+
+		try {
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			con = DriverManager.getConnection("jdbc:mysql:///carrental",
+					"root", "root");
+
+			if (!con.isClosed()) {
+				return true;
+			}
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return false;
 	}
 
 }
