@@ -1,15 +1,15 @@
 package de.hft.carrental.ui.main.personal;
 
-import de.hft.carrental.ui.Window;
-import de.hft.carrental.ui.WindowPage;
+import de.hft.carrental.ui.main.MainWindow;
+import de.hft.carrental.ui.main.MainWindowPage;
 
 //TODO AW: Class yet to be implemented.
-public final class PersonalPage extends WindowPage {
+public final class PersonalPage extends MainWindowPage {
 
 	private static final long serialVersionUID = -5215876430603142614L;
 
-	public PersonalPage(Window window) {
-		super(window, 2, 1);
+	public PersonalPage(MainWindow mainWindow) {
+		super(mainWindow, 2, 1);
 	}
 
 	@Override

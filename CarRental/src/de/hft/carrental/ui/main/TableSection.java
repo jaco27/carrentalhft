@@ -3,9 +3,6 @@ package de.hft.carrental.ui.main;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import de.hft.carrental.ui.WindowPage;
-import de.hft.carrental.ui.WindowPageSection;
-
 /**
  * This abstract class provides a section that contains a table. This table can
  * be configured as necessary by subclasses, for example which columns the table
@@ -13,7 +10,7 @@ import de.hft.carrental.ui.WindowPageSection;
  * 
  * @author Alexander Weickmann
  */
-public abstract class TableSection extends WindowPageSection {
+public abstract class TableSection extends MainWindowPageSection {
 
 	private static final long serialVersionUID = 8789403383980546612L;
 
@@ -34,8 +31,8 @@ public abstract class TableSection extends WindowPageSection {
 	 * @param columnWidths
 	 *            The width of each column.
 	 */
-	protected TableSection(WindowPage page, String title, String[] columnNames,
-			int[] columnWidths) {
+	protected TableSection(MainWindowPage page, String title,
+			String[] columnNames, int[] columnWidths) {
 
 		super(page, title);
 

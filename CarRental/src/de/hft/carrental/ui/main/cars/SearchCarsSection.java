@@ -1,14 +1,14 @@
 package de.hft.carrental.ui.main.cars;
 
-import de.hft.carrental.ui.WindowPage;
-import de.hft.carrental.ui.WindowPageSection;
+import de.hft.carrental.ui.main.MainWindowPage;
+import de.hft.carrental.ui.main.MainWindowPageSection;
 
 //TODO RM, PS: Class yet to be implemented.
-public final class SearchCarsSection extends WindowPageSection {
+public final class SearchCarsSection extends MainWindowPageSection {
 
 	private static final long serialVersionUID = -860724473744347648L;
 
-	protected SearchCarsSection(WindowPage page) {
+	protected SearchCarsSection(MainWindowPage page) {
 		super(page, "INSERT TITLE");
 	}
 

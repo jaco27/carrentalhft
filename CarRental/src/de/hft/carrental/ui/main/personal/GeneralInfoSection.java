@@ -1,14 +1,14 @@
 package de.hft.carrental.ui.main.personal;
 
-import de.hft.carrental.ui.WindowPage;
-import de.hft.carrental.ui.WindowPageSection;
+import de.hft.carrental.ui.main.MainWindowPage;
+import de.hft.carrental.ui.main.MainWindowPageSection;
 
 //TODO AW: Class yet to be implemented.
-public final class GeneralInfoSection extends WindowPageSection {
+public final class GeneralInfoSection extends MainWindowPageSection {
 
 	private static final long serialVersionUID = 2921841683848149881L;
 
-	protected GeneralInfoSection(WindowPage page) {
+	protected GeneralInfoSection(MainWindowPage page) {
 		super(page, "INSERT TITLE");
 	}
 
