@@ -14,6 +14,7 @@ import de.hft.carrental.ui.Window;
 import de.hft.carrental.ui.main.bookings.CurrentBookingsPage;
 import de.hft.carrental.ui.main.cars.CarsPage;
 import de.hft.carrental.ui.main.personal.PersonalPage;
+import de.hft.carrental.ui.splash.SplashWindow;
 
 /**
  * The main window is the application's window that appears after the login was
@@ -56,6 +57,9 @@ public final class MainWindow extends Window implements ActionListener {
 		super();
 
 		loggedInUser = user;
+
+		String title = getTitle();
+		setTitle(title + " [logged in as: " + user.getLoginName() + "]");
 
 		currentBookingsPage = new CurrentBookingsPage(this);
 		searchCarsPage = new CarsPage(this);
@@ -148,9 +152,8 @@ public final class MainWindow extends Window implements ActionListener {
 	 * Logs the current user out and shows the login screen yet again.
 	 */
 	private void logout() {
-		// TODO MR: Should logout the user and show login screen instead.
-		loggedInUser = null;
-		System.exit(0);
+		setVisible(false);
+		new SplashWindow();
 	}
 
 }
