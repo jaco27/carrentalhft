@@ -6,9 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -19,18 +16,10 @@ import javax.swing.JTextField;
 import net.miginfocom.swing.MigLayout;
 
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.cfg.AnnotationConfiguration;
 
-import de.hft.carrental.domain.Agency;
-import de.hft.carrental.domain.Booking;
-import de.hft.carrental.domain.Branch;
-import de.hft.carrental.domain.BranchAddress;
-import de.hft.carrental.domain.Car;
-import de.hft.carrental.domain.CarType;
+import de.hft.carrental.database.SessionManager;
 import de.hft.carrental.domain.Customer;
-import de.hft.carrental.domain.CustomerAddress;
 import de.hft.carrental.ui.WindowPageSection;
 import de.hft.carrental.ui.main.MainWindow;
 
@@ -105,52 +94,29 @@ public final class LoginSection extends WindowPageSection implements
 	 * appropriate error message on failure.
 	 */
 	private void performLogin() {
+		Customer user = null;
+		String username = loginTextField.getText();
 
-		// TODO read from external file
-		// TODO reuse configuration/sessionfactory from a global scope
-		AnnotationConfiguration config = new AnnotationConfiguration()
-				.addAnnotatedClass(Agency.class).addAnnotatedClass(
-						Booking.class).addAnnotatedClass(Branch.class)
-				.addAnnotatedClass(BranchAddress.class).addAnnotatedClass(
-						Car.class).addAnnotatedClass(CarType.class)
-				.addAnnotatedClass(Customer.class).addAnnotatedClass(
-						CustomerAddress.class);
-
-		String driver = config.getProperty("hibernate.connection.driver_class");
-		String url = config.getProperty("hibernate.connection.url");
-		String dbuser = config.getProperty("hibernate.connection.username");
-		String dbpassword = config.getProperty("hibernate.connection.password");
-
-		if (connectionAvailable(driver, url, dbuser, dbpassword)) {
-			Customer user = null;
-
-			String username = loginTextField.getText();
-
-			SessionFactory sessionFactory = config.buildSessionFactory();
-
-			Session session = sessionFactory.openSession();
-
-			Transaction tr = session.beginTransaction();
-
-			String query = "from Customer where loginName = '" + username + "'";
-
-			Object result = session.createQuery(query).uniqueResult();
-
-			if (result == null) {
-				showErrorDialog("Username not found.");
-				return;
-			}
-			user = (Customer) result;
-
-			tr.commit();
-			session.close();
-
-			getWindowPage().getWindow().setVisible(false);
-			new MainWindow(user);
-
-		} else {
+		Session session = SessionManager.getInstance().openSession();
+		if (session == null) {
 			showErrorDialog("No connection to database.");
+			return;
 		}
+
+		Transaction tr = session.beginTransaction();
+
+		String query = "from Customer where loginName = '" + username + "'";
+		Object result = session.createQuery(query).uniqueResult();
+		if (result == null) {
+			showErrorDialog("Username not found.");
+			return;
+		}
+		user = (Customer) result;
+
+		tr.commit();
+
+		getWindowPage().getWindow().setVisible(false);
+		new MainWindow(user);
 	}
 
 	@Override
@@ -192,39 +158,4 @@ public final class LoginSection extends WindowPageSection implements
 		loginTextField.requestFocus();
 	}
 
-	private boolean connectionAvailable(String driver, String url, String user,
-			String pass) {
-		Connection con = null;
-
-		try {
-			Class.forName(driver).newInstance();
-			con = DriverManager.getConnection(url, user, pass);
-
-			if (!con.isClosed()) {
-				closeConnection(con);
-				return true;
-			}
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			if (con != null) {
-				closeConnection(con);
-			}
-		}
-		return false;
-	}
-
-	private void closeConnection(Connection con) {
-		try {
-			con.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
 }

@@ -1,5 +1,7 @@
 package de.hft.carrental.ui.main.bookings;
 
+import de.hft.carrental.domain.Booking;
+import de.hft.carrental.domain.BranchAddress;
 import de.hft.carrental.ui.main.TableSection;
 
 /**
@@ -33,7 +35,27 @@ public final class CurrentBookingsTableSection extends TableSection {
 	@Override
 	protected void refresh() {
 		clearTable();
-		// TODO AW: Obtain data from database as necessary.
+		fillTableWithData();
+	}
+
+	private void fillTableWithData() {
+		for (Booking booking : getLoggedInUser().getBookings()) {
+			Object[] rowData = new Object[7];
+			rowData[0] = booking.getBookingNumber();
+			rowData[1] = booking.getBookingDate();
+			rowData[2] = booking.getReturnDate();
+			rowData[3] = booking.getCar().getCarType().getName();
+			rowData[4] = booking.getCar().getRegistrationNumber();
+			rowData[5] = booking.getAgency().getName();
+
+			BranchAddress branchAddress = booking.getCar().getBranch()
+					.getBranchAddress();
+			rowData[6] = branchAddress.getPostalCode() + ", "
+					+ branchAddress.getCityName() + ", "
+					+ branchAddress.getStreetNumber();
+
+			addDataRow(rowData);
+		}
 	}
 
 }
