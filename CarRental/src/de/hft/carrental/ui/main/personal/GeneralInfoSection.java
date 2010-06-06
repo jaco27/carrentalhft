@@ -4,6 +4,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import net.miginfocom.swing.MigLayout;
+import de.hft.carrental.domain.Customer;
 import de.hft.carrental.ui.main.MainWindowPage;
 import de.hft.carrental.ui.main.MainWindowPageSection;
 
@@ -25,25 +26,54 @@ public final class GeneralInfoSection extends MainWindowPageSection {
 	private JTextField registerField = new JTextField();
 	private JTextField emailField = new JTextField();
 	private JTextField firstNameField = new JTextField();
-	private JTextField flastNameField = new JTextField();
+	private JTextField lastNameField = new JTextField();
 	private JTextField surNameField = new JTextField();
 	private JTextField birthDateField = new JTextField();
 	private JTextField companyNameField = new JTextField();
 
+	private Customer user;
+
 	protected GeneralInfoSection(MainWindowPage page) {
 		super(page, "Personal details");
 		setLayout(new MigLayout());
+		user = getLoggedInUser();
 		createContents();
 	}
 
 	private void createContents() {
 		add(loginLabel);
 		add(loginField, "wrap");
+		loginField.setEditable(false);
+
+		add(registerDateLabel);
+		add(registerField, "wrap");
+
+		if (user.getCustomerAddresses().equals(Customer.CUSTOMER_TYPE_PRIVATE)) {
+			add(firstNameLabel);
+			add(firstNameField, "wrap");
+			add(surNameLabel);
+			add(surNameField, "wrap");
+			add(lastNameLabel);
+			add(lastNameField, "wrap");
+			add(birthDateLabel);
+			add(birthDateField, "wrap");
+		} else {
+			add(companyNameLabel);
+			add(companyNameField, "wrap");
+		}
+
+		add(emailLabel);
+		add(emailField, "wrap");
+
+		refresh();
 	}
 
 	@Override
 	protected void refresh() {
-		// TODO AW: Method yet to be implemented
+		loginField.setText(user.getLoginName());
+		firstNameField.setText(user.getFirstName());
+		surNameField.setText(user.getSurname());
+		lastNameField.setText(user.getLoginName());
 	}
 
 }
