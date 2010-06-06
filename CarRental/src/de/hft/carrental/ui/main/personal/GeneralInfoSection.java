@@ -1,7 +1,10 @@
 package de.hft.carrental.ui.main.personal;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.DateFormat;
 
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
@@ -31,6 +34,8 @@ public final class GeneralInfoSection extends MainWindowPageSection {
 	private JTextField birthDateField = new JTextField();
 	private JTextField companyNameField = new JTextField();
 
+	private JButton saveChangesButton = new JButton("Save changes");
+
 	private Customer user;
 
 	protected GeneralInfoSection(MainWindowPage page) {
@@ -38,27 +43,38 @@ public final class GeneralInfoSection extends MainWindowPageSection {
 		setLayout(new MigLayout("", "[grow][grow][grow][grow]", ""));
 		user = getLoggedInUser();
 		createContents();
+
+		saveChangesButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				saveChanges();
+			}
+		});
 	}
 
 	private void createContents() {
 
 		if (user.getCustomerType().equals(Customer.CUSTOMER_TYPE_PRIVATE)) {
 			add(loginLabel);
-			add(loginField);
+			add(loginField, "growx");
 			loginField.setEditable(false);
 			add(firstNameLabel);
-			add(firstNameField, "wrap");
+			add(firstNameField, "growx, wrap");
 
 			add(registerDateLabel);
-			add(registerField);
+			add(registerField, "growx");
 			add(surNameLabel);
-			add(surNameField, "wrap");
+			add(surNameField, "growx, wrap");
 
 			add(emailLabel);
-			add(emailField);
+			add(emailField, "growx");
 			add(birthDateLabel);
-			add(birthDateField);
+			add(birthDateField, "growx, wrap");
+
+			add(saveChangesButton, "span 4, align right");
 		} else {
+			// TODO Finish layouting
 			add(loginLabel);
 			add(loginField);
 			loginField.setEditable(false);
@@ -85,5 +101,9 @@ public final class GeneralInfoSection extends MainWindowPageSection {
 		DateFormat df = DateFormat.getInstance();
 		registerField.setText(df.format(user.getRegisterDate()));
 		birthDateField.setText(df.format(user.getDateOfBirth()));
+	}
+
+	private void saveChanges() {
+		user.setEmail(emailField.getText());
 	}
 }
