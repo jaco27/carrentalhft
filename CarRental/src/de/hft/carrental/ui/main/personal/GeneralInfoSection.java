@@ -20,27 +20,27 @@ public final class GeneralInfoSection extends MainWindowPageSection {
 
 	private static final long serialVersionUID = 2921841683848149881L;
 
-	private JLabel loginLabel = new JLabel("Login name:");
-	private JLabel registerDateLabel = new JLabel("Register date:");
-	private JLabel emailLabel = new JLabel("Email:");
-	private JLabel firstNameLabel = new JLabel("First name:");
-	private JLabel surNameLabel = new JLabel("Surname:");
-	private JLabel birthDateLabel = new JLabel("Date of birth:");
-	private JLabel companyNameLabel = new JLabel("Company name: ");
+	private final JLabel loginLabel = new JLabel("Login name:");
+	private final JLabel registerDateLabel = new JLabel("Register date:");
+	private final JLabel emailLabel = new JLabel("Email:");
+	private final JLabel firstNameLabel = new JLabel("First name:");
+	private final JLabel surNameLabel = new JLabel("Surname:");
+	private final JLabel birthDateLabel = new JLabel("Date of birth:");
+	private final JLabel companyNameLabel = new JLabel("Company name: ");
 
-	private JTextField loginField = new JTextField();
-	private JTextField registerField = new JTextField();
-	private JTextField emailField = new JTextField();
-	private JTextField firstNameField = new JTextField();
-	private JTextField surNameField = new JTextField();
-	private JTextField birthDateField = new JTextField();
-	private JTextField companyNameField = new JTextField();
+	private final JTextField loginField = new JTextField();
+	private final JTextField registerField = new JTextField();
+	private final JTextField emailField = new JTextField();
+	private final JTextField firstNameField = new JTextField();
+	private final JTextField surNameField = new JTextField();
+	private final JTextField birthDateField = new JTextField();
+	private final JTextField companyNameField = new JTextField();
 
-	private JButton saveChangesButton = new JButton("Save changes");
+	private final JButton saveChangesButton = new JButton("Save changes");
 
-	private KeyListener kl = new FieldEditedListener();
+	private final KeyListener kl = new FieldEditedListener();
 
-	private Customer user;
+	private final Customer user;
 
 	protected GeneralInfoSection(MainWindowPage page) {
 		super(page, "Personal details");

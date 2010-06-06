@@ -56,14 +56,14 @@ public final class CustomerAddress {
 		return postalCode;
 	}
 
-	@Column(name = "STREET_NUMBER", updatable = true, nullable = false, length = 5)
-	public String getStreetNumber() {
-		return streetNumber;
-	}
-
 	@Column(name = "STREET_NAME", updatable = true, nullable = false, length = 45)
 	public String getStreetName() {
 		return streetName;
+	}
+
+	@Column(name = "STREET_NUMBER", updatable = true, nullable = false, length = 5)
+	public String getStreetNumber() {
+		return streetNumber;
 	}
 
 	@ManyToOne(cascade = CascadeType.ALL, optional = false, targetEntity = Customer.class)
