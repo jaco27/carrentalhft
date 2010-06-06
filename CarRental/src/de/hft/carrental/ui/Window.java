@@ -119,10 +119,13 @@ public abstract class Window extends JFrame {
 		if (currentPage != null) {
 			remove(currentPage);
 		}
+
 		add(page, createGridBagConstraints(0, 1, 1, 1, GridBagConstraints.BOTH,
 				new Insets(10, 0, 0, 0), GridBagConstraints.FIRST_LINE_START,
 				0, 0));
+
 		currentPage = page;
+		currentPage.refresh();
 		repaint();
 	}
 

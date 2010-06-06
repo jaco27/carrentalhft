@@ -2,6 +2,8 @@ package de.hft.carrental.ui;
 
 import java.awt.Container;
 import java.awt.GridLayout;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Window pages are used by the class {@link Window}. One window page bundles
@@ -20,6 +22,8 @@ public abstract class WindowPage extends Container {
 	/** The {@link Window} this window page belongs to. */
 	private final Window window;
 
+	private final List<WindowPageSection> sections;
+
 	/**
 	 * @param window
 	 *            The {@link Window} this window page will belong to.
@@ -34,6 +38,7 @@ public abstract class WindowPage extends Container {
 		super();
 
 		this.window = window;
+		sections = new ArrayList<WindowPageSection>();
 
 		createLayout(layoutRows, layoutColumns);
 		addSections();
@@ -58,6 +63,7 @@ public abstract class WindowPage extends Container {
 	 */
 	protected final void addSection(WindowPageSection section) {
 		add(section);
+		sections.add(section);
 	}
 
 	/**
@@ -65,6 +71,15 @@ public abstract class WindowPage extends Container {
 	 */
 	public final Window getWindow() {
 		return window;
+	}
+
+	/**
+	 * Refreshes the contents of this page by refreshing all of it's sections.
+	 */
+	public final void refresh() {
+		for (WindowPageSection section : sections) {
+			section.refresh();
+		}
 	}
 
 }
