@@ -1,7 +1,7 @@
 package de.hft.carrental.ui.main.bookings;
 
-import de.hft.carrental.ui.WindowPage;
 import de.hft.carrental.ui.main.MainWindow;
+import de.hft.carrental.ui.main.MainWindowPage;
 
 /**
  * This page belongs to the {@link MainWindow} and enables the user to review
@@ -9,7 +9,7 @@ import de.hft.carrental.ui.main.MainWindow;
  * 
  * @author Alexander Weickmann
  */
-public final class CurrentBookingsPage extends WindowPage {
+public final class CurrentBookingsPage extends MainWindowPage {
 
 	private static final long serialVersionUID = 5392467214213264243L;
 

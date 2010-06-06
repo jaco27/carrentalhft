@@ -51,7 +51,7 @@ public final class MainWindow extends Window implements ActionListener {
 
 	private final PersonalPage editPersonalDataPage;
 
-	private Customer loggedInUser;
+	private final Customer loggedInUser;
 
 	public MainWindow(Customer user) {
 		super();
