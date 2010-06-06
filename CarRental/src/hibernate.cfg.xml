@@ -4,5 +4,13 @@
 <hibernate-configuration>
 	<session-factory>
 		<mapping package="de.hft.carrental.domain" />
+		<mapping class="de.hft.carrental.domain.Agency" />
+		<mapping class="de.hft.carrental.domain.Booking" />
+		<mapping class="de.hft.carrental.domain.Branch" />
+		<mapping class="de.hft.carrental.domain.BranchAddress" />
+		<mapping class="de.hft.carrental.domain.Car" />
+		<mapping class="de.hft.carrental.domain.CarType" />
+		<mapping class="de.hft.carrental.domain.Customer" />
+		<mapping class="de.hft.carrental.domain.CustomerAddress" />
 	</session-factory>
 </hibernate-configuration>
