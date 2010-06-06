@@ -1,5 +1,6 @@
 package de.hft.carrental.ui.splash.login;
 
+import java.awt.Toolkit;
 import java.awt.Dialog.ModalityType;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -96,15 +97,21 @@ public final class LoginSection extends WindowPageSection implements
 	 * appropriate error message on failure.
 	 */
 	private void performLogin() {
-		if (connectionAvailable()) {
+
+		AnnotationConfiguration config = new AnnotationConfiguration();
+
+		String driver = config.getProperty("hibernate.connection.driver_class");
+		String url = config.getProperty("hibernate.connection.url");
+		String dbuser = config.getProperty("hibernate.connection.username");
+		String dbpassword = config.getProperty("hibernate.connection.password");
+
+		if (connectionAvailable(driver, url, dbuser, dbpassword)) {
 			boolean loginSuccessful = false;
 			Customer user = null;
 
 			while (!loginSuccessful) {
 
 				String username = loginTextField.getText();
-
-				AnnotationConfiguration config = new AnnotationConfiguration();
 
 				SessionFactory sessionFactory = config.buildSessionFactory();
 
@@ -117,7 +124,7 @@ public final class LoginSection extends WindowPageSection implements
 						.uniqueResult();
 
 				if (result == null) {
-					showLoginErrorDialog();
+					showErrorDialog("Username not found.");
 				} else {
 					user = (Customer) result;
 					loginSuccessful = true;
@@ -130,7 +137,7 @@ public final class LoginSection extends WindowPageSection implements
 			getWindowPage().getWindow().setVisible(false);
 			new MainWindow(user);
 		} else {
-			showConnectionErrorDialog();
+			showErrorDialog("No connection to database.");
 		}
 	}
 
@@ -139,18 +146,19 @@ public final class LoginSection extends WindowPageSection implements
 		// Nothing to do.
 	}
 
-	private void showLoginErrorDialog() {
+	private void showErrorDialog(String errorText) {
 		final JDialog errorDialog = new JDialog();
+		errorDialog.setTitle("Error");
 
-		MigLayout layout = new MigLayout();
+		MigLayout layout = new MigLayout("", "[center]", "[center]");
 
 		errorDialog.setLayout(layout);
 		errorDialog.setModalityType(ModalityType.APPLICATION_MODAL);
 
-		JLabel errorLabel = new JLabel("Username not found!");
+		JLabel errorLabel = new JLabel(errorText);
 		errorDialog.add(errorLabel, "spanx, wrap");
 
-		final JButton closeButton = new JButton("Let me try this again...");
+		final JButton closeButton = new JButton("Ok");
 		closeButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -162,22 +170,22 @@ public final class LoginSection extends WindowPageSection implements
 
 		errorDialog.pack();
 		errorDialog.setResizable(false);
+		int posX = Toolkit.getDefaultToolkit().getScreenSize().width / 2;
+		int posY = Toolkit.getDefaultToolkit().getScreenSize().height / 2;
+		errorDialog.setLocation(posX, posY);
+
 		errorDialog.setVisible(true);
 
 		loginTextField.setText("");
 	}
 
-	private void showConnectionErrorDialog() {
-		// TODO implement
-	}
-
-	private boolean connectionAvailable() {
+	private boolean connectionAvailable(String driver, String url, String user,
+			String pass) {
 		Connection con = null;
 
 		try {
-			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			con = DriverManager.getConnection("jdbc:mysql:///carrental",
-					"root", "root");
+			Class.forName(driver).newInstance();
+			con = DriverManager.getConnection(url, user, pass);
 
 			if (!con.isClosed()) {
 				return true;
