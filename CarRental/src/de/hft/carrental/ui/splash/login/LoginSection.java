@@ -188,6 +188,7 @@ public final class LoginSection extends WindowPageSection implements
 			con = DriverManager.getConnection(url, user, pass);
 
 			if (!con.isClosed()) {
+				closeConnection(con);
 				return true;
 			}
 		} catch (InstantiationException e) {
@@ -200,14 +201,17 @@ public final class LoginSection extends WindowPageSection implements
 			e.printStackTrace();
 		} finally {
 			if (con != null) {
-				try {
-					con.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
+				closeConnection(con);
 			}
 		}
 		return false;
 	}
 
+	private void closeConnection(Connection con) {
+		try {
+			con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }
