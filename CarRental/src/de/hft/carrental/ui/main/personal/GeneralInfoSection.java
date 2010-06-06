@@ -19,7 +19,6 @@ public final class GeneralInfoSection extends MainWindowPageSection {
 	private JLabel registerDateLabel = new JLabel("Register date:");
 	private JLabel emailLabel = new JLabel("Email:");
 	private JLabel firstNameLabel = new JLabel("First name:");
-	private JLabel lastNameLabel = new JLabel("Last name:");
 	private JLabel surNameLabel = new JLabel("Surname:");
 	private JLabel birthDateLabel = new JLabel("Date of birth:");
 	private JLabel companyNameLabel = new JLabel("Company name: ");
@@ -28,7 +27,6 @@ public final class GeneralInfoSection extends MainWindowPageSection {
 	private JTextField registerField = new JTextField();
 	private JTextField emailField = new JTextField();
 	private JTextField firstNameField = new JTextField();
-	private JTextField lastNameField = new JTextField();
 	private JTextField surNameField = new JTextField();
 	private JTextField birthDateField = new JTextField();
 	private JTextField companyNameField = new JTextField();
@@ -37,35 +35,41 @@ public final class GeneralInfoSection extends MainWindowPageSection {
 
 	protected GeneralInfoSection(MainWindowPage page) {
 		super(page, "Personal details");
-		setLayout(new MigLayout());
+		setLayout(new MigLayout("", "[grow][grow][grow][grow]", ""));
 		user = getLoggedInUser();
 		createContents();
 	}
 
 	private void createContents() {
-		add(loginLabel);
-		add(loginField, "wrap");
-		loginField.setEditable(false);
 
-		add(registerDateLabel);
-		add(registerField, "wrap");
-
-		if (user.getCustomerAddresses().equals(Customer.CUSTOMER_TYPE_PRIVATE)) {
+		if (user.getCustomerType().equals(Customer.CUSTOMER_TYPE_PRIVATE)) {
+			add(loginLabel);
+			add(loginField);
+			loginField.setEditable(false);
 			add(firstNameLabel);
 			add(firstNameField, "wrap");
+
+			add(registerDateLabel);
+			add(registerField);
 			add(surNameLabel);
 			add(surNameField, "wrap");
-			add(lastNameLabel);
-			add(lastNameField, "wrap");
-			add(birthDateLabel);
-			add(birthDateField, "wrap");
-		} else {
-			add(companyNameLabel);
-			add(companyNameField, "wrap");
-		}
 
-		add(emailLabel);
-		add(emailField, "wrap");
+			add(emailLabel);
+			add(emailField);
+			add(birthDateLabel);
+			add(birthDateField);
+		} else {
+			add(loginLabel);
+			add(loginField);
+			loginField.setEditable(false);
+
+			add(registerDateLabel);
+			add(registerField);
+			registerField.setEditable(false);
+
+			add(companyNameLabel);
+			add(companyNameField);
+		}
 
 		refresh();
 	}
@@ -75,7 +79,6 @@ public final class GeneralInfoSection extends MainWindowPageSection {
 		loginField.setText(user.getLoginName());
 		firstNameField.setText(user.getFirstName());
 		surNameField.setText(user.getSurname());
-		lastNameField.setText(user.getLoginName());
 		companyNameField.setText(user.getCompanyName());
 		emailField.setText(user.getEmail());
 
