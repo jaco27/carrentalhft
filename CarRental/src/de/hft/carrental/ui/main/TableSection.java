@@ -54,7 +54,6 @@ public abstract class TableSection extends MainWindowPageSection {
 		tableHeader.getColumnModel().setColumnMargin(columnMargin);
 		add(tableHeader);
 		add(table);
-
 	}
 
 	protected void createLayout() {
@@ -78,5 +77,4 @@ public abstract class TableSection extends MainWindowPageSection {
 	protected final void addDataRow(Object[] rowData) {
 		tableModel.addRow(rowData);
 	}
-
 }
