@@ -2,6 +2,8 @@ package de.hft.carrental.ui.main.personal;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.text.DateFormat;
 
 import javax.swing.JButton;
@@ -36,6 +38,8 @@ public final class GeneralInfoSection extends MainWindowPageSection {
 
 	private JButton saveChangesButton = new JButton("Save changes");
 
+	private KeyListener kl = new FieldEditedListener();
+
 	private Customer user;
 
 	protected GeneralInfoSection(MainWindowPage page) {
@@ -49,15 +53,18 @@ public final class GeneralInfoSection extends MainWindowPageSection {
 			createCompanyUserContents();
 		}
 
-		refresh();
-
 		saveChangesButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				saveChanges();
+				saveChangesButton.setEnabled(false);
 			}
 		});
+
+		addListeners();
+
+		saveChangesButton.setEnabled(false);
 	}
 
 	@Override
@@ -116,5 +123,28 @@ public final class GeneralInfoSection extends MainWindowPageSection {
 		add(companyNameLabel);
 		add(companyNameField, "growx");
 		companyNameField.setEditable(false);
+	}
+
+	private void addListeners() {
+		emailField.addKeyListener(kl);
+	}
+
+	class FieldEditedListener implements KeyListener {
+
+		@Override
+		public void keyPressed(KeyEvent e) {
+			/* nothing to do */
+		}
+
+		@Override
+		public void keyReleased(KeyEvent e) {
+			/* nothing to do */
+		}
+
+		@Override
+		public void keyTyped(KeyEvent e) {
+			saveChangesButton.setEnabled(true);
+		}
+
 	}
 }
