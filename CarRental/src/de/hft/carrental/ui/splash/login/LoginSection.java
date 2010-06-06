@@ -64,6 +64,7 @@ public final class LoginSection extends WindowPageSection implements
 
 	private void createContents() {
 		loginTextField = new JTextField(18);
+		loginTextField.requestFocusInWindow();
 		loginTextField.addKeyListener(new KeyListener() {
 			@Override
 			public void keyPressed(KeyEvent e) {
@@ -188,6 +189,7 @@ public final class LoginSection extends WindowPageSection implements
 		errorDialog.setVisible(true);
 
 		loginTextField.setText("");
+		loginTextField.requestFocus();
 	}
 
 	private boolean connectionAvailable(String driver, String url, String user,
