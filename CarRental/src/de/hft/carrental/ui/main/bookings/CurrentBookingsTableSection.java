@@ -1,5 +1,7 @@
 package de.hft.carrental.ui.main.bookings;
 
+import java.util.Date;
+
 import de.hft.carrental.domain.Booking;
 import de.hft.carrental.domain.BranchAddress;
 import de.hft.carrental.ui.main.TableSection;
@@ -14,12 +16,12 @@ public final class CurrentBookingsTableSection extends TableSection {
 
 	private static final long serialVersionUID = 6099129396844699288L;
 
-	private static final int[] COLUMN_WIDTHS = new int[] { 100, 90, 90, 130,
-			130, 160, 190 };
+	private static final int[] COLUMN_WIDTHS = new int[] { 55, 65, 65, 80, 90,
+			90, 160 };
 
-	private static final String[] COLUMN_NAMES = new String[] {
-			"Booking Number", "Booking Date", "Return Date", "Car Type",
-			"Registration Number", "Agency", "Location" };
+	private static final String[] COLUMN_NAMES = new String[] { "Booking Nr.",
+			"Booking Date", "Return Date", "Car Type", "Registration Number",
+			"Agency", "Location" };
 
 	/**
 	 * @param currentBookingsPage
@@ -42,8 +44,16 @@ public final class CurrentBookingsTableSection extends TableSection {
 		for (Booking booking : getLoggedInUser().getBookings()) {
 			Object[] rowData = new Object[7];
 			rowData[0] = booking.getBookingNumber();
-			rowData[1] = booking.getBookingDate();
-			rowData[2] = booking.getReturnDate();
+
+			Date bookingDate = booking.getBookingDate();
+			String bookingDateString = bookingDate.toString();
+			rowData[1] = bookingDateString.substring(0, bookingDateString
+					.indexOf(" "));
+
+			Date returnDate = booking.getReturnDate();
+			String returnDateString = returnDate.toString();
+			rowData[2] = returnDateString.substring(0, returnDateString
+					.indexOf(" "));
 			rowData[3] = booking.getCar().getCarType().getName();
 			rowData[4] = booking.getCar().getRegistrationNumber();
 			rowData[5] = booking.getAgency().getName();
