@@ -118,9 +118,6 @@ public final class LoginSection extends WindowPageSection implements
 
 		getWindowPage().getWindow().setVisible(false);
 		new MainWindow(user, session);
-
-		session.flush();
-		session.close();
 	}
 
 	@Override
