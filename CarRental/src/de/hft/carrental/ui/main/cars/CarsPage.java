@@ -9,7 +9,7 @@ public final class CarsPage extends MainWindowPage {
 	private static final long serialVersionUID = 8416397855771759503L;
 
 	public CarsPage(MainWindow mainWindow) {
-		super(mainWindow, 1, 2);
+		super(mainWindow, 2, 1);
 	}
 
 	@Override
