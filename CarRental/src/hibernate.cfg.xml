@@ -3,13 +3,13 @@
 "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
 	<session-factory>
-		<mapping class="Agency" />
-		<mapping class="Booking" />
-		<mapping class="Branch" />
-		<mapping class="BranchAddress" />
-		<mapping class="Car" />
-		<mapping class="CarType" />
-		<mapping class="Customer" />
-		<mapping class="CustomerAddress" />
+		<mapping class="de.hft.carrental.Agency" />
+		<mapping class="de.hft.carrental.Booking" />
+		<mapping class="de.hft.carrental.Branch" />
+		<mapping class="de.hft.carrental.BranchAddress" />
+		<mapping class="de.hft.carrental.Car" />
+		<mapping class="de.hft.carrental.CarType" />
+		<mapping class="de.hft.carrental.Customer" />
+		<mapping class="de.hft.carrental.CustomerAddress" />
 	</session-factory>
 </hibernate-configuration>
