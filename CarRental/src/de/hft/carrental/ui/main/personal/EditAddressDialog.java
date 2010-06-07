@@ -22,7 +22,6 @@ public class EditAddressDialog extends BaseAddressDialog {
 	private JButton previous = new JButton("Previous");
 	private JButton next = new JButton("Next");
 	private JButton save = new JButton("Save");
-	private JButton delete = new JButton("Delete");
 
 	private List<CustomerAddress> addresses = new ArrayList<CustomerAddress>();
 	private int pos = 0;
@@ -58,12 +57,27 @@ public class EditAddressDialog extends BaseAddressDialog {
 	private void addButtons() {
 		add(previous, "split 2, align left");
 		add(next);
-		add(save, "split 3, align right");
-		add(delete);
+		add(save, "split 2, align right");
 		add(close);
 	}
 
 	private void addButtonActions() {
+		next.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				fillFields(pos++);
+			}
+		});
+
+		previous.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				fillFields(pos--);
+			}
+		});
+
 		close.addActionListener(new ActionListener() {
 
 			@Override
