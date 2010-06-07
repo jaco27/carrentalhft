@@ -24,14 +24,15 @@ public class EditAddressDialog extends BaseAddressDialog {
 	private JButton save = new JButton("Save");
 	private JButton delete = new JButton("Delete");
 
-	private List<CustomerAddress> data = new ArrayList<CustomerAddress>();
+	private List<CustomerAddress> addresses = new ArrayList<CustomerAddress>();
 	private int pos = 0;
 
 	private KeyListener cl = new ChangeListener();
 
 	public EditAddressDialog(Set<CustomerAddress> addresses) {
-		data.addAll(addresses);
+		this.addresses.addAll(addresses);
 
+		setTitle("Edit address details:");
 		addButtons();
 		addButtonActions();
 		addListeners();
@@ -48,9 +49,9 @@ public class EditAddressDialog extends BaseAddressDialog {
 		setVisible(true);
 	}
 
-	public Set<CustomerAddress> getData() {
+	public Set<CustomerAddress> getAddresses() {
 		Set<CustomerAddress> tmp = new HashSet<CustomerAddress>();
-		tmp.addAll(data);
+		tmp.addAll(addresses);
 		return tmp;
 	}
 
@@ -75,12 +76,12 @@ public class EditAddressDialog extends BaseAddressDialog {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				data.get(pos).setStreetName(streetField.getText());
-				data.get(pos).setStreetNumber(numberField.getText());
-				data.get(pos).setPostalCode(postalField.getText());
-				data.get(pos).setCityName(cityField.getText());
-				data.get(pos).setCountry(countryField.getText());
-				data.get(pos).setPhoneNumber(phoneField.getText());
+				addresses.get(pos).setStreetName(streetField.getText());
+				addresses.get(pos).setStreetNumber(numberField.getText());
+				addresses.get(pos).setPostalCode(postalField.getText());
+				addresses.get(pos).setCityName(cityField.getText());
+				addresses.get(pos).setCountry(countryField.getText());
+				addresses.get(pos).setPhoneNumber(phoneField.getText());
 
 				save.setEnabled(false);
 			}
@@ -88,12 +89,12 @@ public class EditAddressDialog extends BaseAddressDialog {
 	}
 
 	private void fillFields(int pos) {
-		streetField.setText(data.get(pos).getStreetName());
-		numberField.setText(data.get(pos).getStreetNumber());
-		postalField.setText(data.get(pos).getPostalCode());
-		cityField.setText(data.get(pos).getCityName());
-		countryField.setText(data.get(pos).getCountry());
-		phoneField.setText(data.get(pos).getPhoneNumber());
+		streetField.setText(addresses.get(pos).getStreetName());
+		numberField.setText(addresses.get(pos).getStreetNumber());
+		postalField.setText(addresses.get(pos).getPostalCode());
+		cityField.setText(addresses.get(pos).getCityName());
+		countryField.setText(addresses.get(pos).getCountry());
+		phoneField.setText(addresses.get(pos).getPhoneNumber());
 
 		checkPreviousNext();
 	}
@@ -105,7 +106,7 @@ public class EditAddressDialog extends BaseAddressDialog {
 			previous.setEnabled(true);
 		}
 
-		if (pos + 1 == data.size()) {
+		if (pos + 1 == addresses.size()) {
 			next.setEnabled(false);
 		} else {
 			next.setEnabled(true);

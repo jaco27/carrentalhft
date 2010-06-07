@@ -8,6 +8,7 @@ import java.awt.event.KeyListener;
 
 import javax.swing.JButton;
 
+import de.hft.carrental.domain.Customer;
 import de.hft.carrental.domain.CustomerAddress;
 
 public class AddAddressDialog extends BaseAddressDialog {
@@ -21,7 +22,12 @@ public class AddAddressDialog extends BaseAddressDialog {
 
 	private KeyListener cl = new ChangeListener();
 
-	public AddAddressDialog() {
+	private Customer customer;
+
+	public AddAddressDialog(Customer customer) {
+		this.customer = customer;
+
+		setTitle("Add new address:");
 		addButtons();
 		addButtonActions();
 		addListeners();
@@ -45,6 +51,7 @@ public class AddAddressDialog extends BaseAddressDialog {
 		newAddress.setCityName(cityField.getText());
 		newAddress.setCountry(countryField.getText());
 		newAddress.setPhoneNumber(phoneField.getText());
+		newAddress.setCustomer(customer);
 
 		return newAddress;
 	}

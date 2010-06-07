@@ -2,7 +2,6 @@ package de.hft.carrental.ui.main.personal;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Set;
 
 import javax.swing.JButton;
 
@@ -45,16 +44,12 @@ public final class AddressesSection extends TableSection {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				AddAddressDialog ad = new AddAddressDialog();
+				AddAddressDialog ad = new AddAddressDialog(getLoggedInUser());
 
 				if (ad.addressAdded()) {
-					CustomerAddress newAddress = ad.getNewCustomerAddress();
-					newAddress.setCustomer(getLoggedInUser());
-
-					Set<CustomerAddress> addresses = getLoggedInUser()
-							.getCustomerAddresses();
-					addresses.add(newAddress);
-					saveChanges(addresses);
+					getLoggedInUser().getCustomerAddresses().add(
+							ad.getNewCustomerAddress());
+					refresh();
 				}
 			}
 		});
@@ -63,9 +58,10 @@ public final class AddressesSection extends TableSection {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				EditAddressDialog ad = new EditAddressDialog(getLoggedInUser()
+				EditAddressDialog ed = new EditAddressDialog(getLoggedInUser()
 						.getCustomerAddresses());
-				saveChanges(ad.getData());
+				getLoggedInUser().setCustomerAddresses(ed.getAddresses());
+				refresh();
 			}
 		});
 	}
@@ -82,10 +78,5 @@ public final class AddressesSection extends TableSection {
 
 			addDataRow(row);
 		}
-	}
-
-	private void saveChanges(Set<CustomerAddress> addresses) {
-		getLoggedInUser().setCustomerAddresses(addresses);
-		refresh();
 	}
 }
