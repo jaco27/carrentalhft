@@ -18,7 +18,8 @@ import de.hft.carrental.ui.main.MainWindowPage;
 import de.hft.carrental.ui.main.MainWindowPageSection;
 
 //TODO AW: Class yet to be implemented.
-public final class GeneralInfoSection extends MainWindowPageSection {
+public final class GeneralInfoSection extends MainWindowPageSection implements
+		ActionListener, KeyListener {
 
 	private static final long serialVersionUID = 2921841683848149881L;
 
@@ -40,7 +41,7 @@ public final class GeneralInfoSection extends MainWindowPageSection {
 
 	private final JButton saveChangesButton = new JButton("Save changes");
 
-	private final KeyListener kl = new FieldEditedListener();
+	private static final String AC_SAVE_CHANGES = "save_changes";
 
 	private final Customer user;
 
@@ -75,10 +76,6 @@ public final class GeneralInfoSection extends MainWindowPageSection {
 		birthDateField.setText(df.format(user.getDateOfBirth()));
 
 		saveChangesButton.setEnabled(false);
-	}
-
-	private void saveChanges() {
-		user.setEmail(emailField.getText());
 	}
 
 	private void createPrivateUserContents() {
@@ -123,34 +120,32 @@ public final class GeneralInfoSection extends MainWindowPageSection {
 	}
 
 	private void addListeners() {
-		emailField.addKeyListener(kl);
-
-		saveChangesButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				saveChanges();
-				saveChangesButton.setEnabled(false);
-			}
-		});
+		saveChangesButton.addActionListener(this);
+		emailField.addKeyListener(this);
 	}
 
-	class FieldEditedListener implements KeyListener {
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		String actionCommand = e.getActionCommand();
 
-		@Override
-		public void keyPressed(KeyEvent e) {
-			/* nothing to do */
+		if (actionCommand.equals(AC_SAVE_CHANGES)) {
+			user.setEmail(emailField.getText());
+			saveChangesButton.setEnabled(false);
 		}
+	}
 
-		@Override
-		public void keyReleased(KeyEvent e) {
-			/* nothing to do */
-		}
+	@Override
+	public void keyPressed(KeyEvent e) {
+		/* nothing to do */
+	}
 
-		@Override
-		public void keyTyped(KeyEvent e) {
-			saveChangesButton.setEnabled(true);
-		}
+	@Override
+	public void keyReleased(KeyEvent e) {
+		/* nothing to do */
+	}
 
+	@Override
+	public void keyTyped(KeyEvent e) {
+		saveChangesButton.setEnabled(true);
 	}
 }

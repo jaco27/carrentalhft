@@ -11,25 +11,29 @@ import javax.swing.JButton;
 import de.hft.carrental.domain.Customer;
 import de.hft.carrental.domain.CustomerAddress;
 
-public class AddAddressDialog extends BaseAddressDialog {
+public class AddAddressDialog extends BaseAddressDialog implements KeyListener,
+		ActionListener {
 
 	private static final long serialVersionUID = 1L;
 
-	private JButton add = new JButton("Add");
-	private JButton close = new JButton("Close");
+	private JButton addButton = new JButton("Add");
+
+	private JButton closeButton = new JButton("Close");
 
 	private boolean addressAdded = false;
 
-	private KeyListener cl = new ChangeListener();
-
 	private Customer customer;
+
+	private static final String AC_ADD_ADDRESS = "add_address";
+
+	private static final String AC_CLOSE_DIALOG = "close_dialog";
 
 	public AddAddressDialog(Customer customer) {
 		this.customer = customer;
 
 		setTitle("Add new address:");
+
 		addButtons();
-		addButtonActions();
 		addListeners();
 
 		pack();
@@ -39,7 +43,7 @@ public class AddAddressDialog extends BaseAddressDialog {
 				- getHeight() / 2;
 		setLocation(posX, posY);
 
-		add.setEnabled(false);
+		addButton.setEnabled(false);
 		setVisible(true);
 	}
 
@@ -61,57 +65,50 @@ public class AddAddressDialog extends BaseAddressDialog {
 	}
 
 	private void addButtons() {
-		add(add, "align left");
-		add(close, "align right");
-	}
-
-	private void addButtonActions() {
-		add.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				addressAdded = true;
-				setVisible(false);
-			}
-		});
-
-		close.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
-			}
-		});
+		add(addButton, "align left");
+		add(closeButton, "align right");
 	}
 
 	private void addListeners() {
-		streetField.addKeyListener(cl);
-		numberField.addKeyListener(cl);
-		postalField.addKeyListener(cl);
-		cityField.addKeyListener(cl);
-		countryField.addKeyListener(cl);
-		phoneField.addKeyListener(cl);
+		addButton.addActionListener(this);
+		closeButton.addActionListener(this);
+
+		streetField.addKeyListener(this);
+		numberField.addKeyListener(this);
+		postalField.addKeyListener(this);
+		cityField.addKeyListener(this);
+		countryField.addKeyListener(this);
+		phoneField.addKeyListener(this);
 	}
 
-	class ChangeListener implements KeyListener {
+	@Override
+	public void keyPressed(KeyEvent e) {
+		/* nothing to do */
+	}
 
-		@Override
-		public void keyPressed(KeyEvent e) {
-			/* nothing to do */
+	@Override
+	public void keyReleased(KeyEvent e) {
+		/* nothing to do */
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		if (allFieldsFilled()) {
+			addButton.setEnabled(true);
+		} else {
+			addButton.setEnabled(false);
 		}
+	}
 
-		@Override
-		public void keyReleased(KeyEvent e) {
-			/* nothing to do */
-		}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		String actionCommand = e.getActionCommand();
 
-		@Override
-		public void keyTyped(KeyEvent e) {
-			if (allFieldsFilled()) {
-				add.setEnabled(true);
-			} else {
-				add.setEnabled(false);
-			}
+		if (actionCommand.equals(AC_ADD_ADDRESS)) {
+			addressAdded = true;
+			setVisible(false);
+		} else if (actionCommand.equals(AC_CLOSE_DIALOG)) {
+			setVisible(false);
 		}
 	}
 }
