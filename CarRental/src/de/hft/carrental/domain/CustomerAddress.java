@@ -1,6 +1,5 @@
 package de.hft.carrental.domain;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -66,7 +65,7 @@ public final class CustomerAddress {
 		return streetNumber;
 	}
 
-	@ManyToOne(cascade = CascadeType.ALL, optional = false, targetEntity = Customer.class)
+	@ManyToOne(optional = false, targetEntity = Customer.class)
 	@JoinColumn(name = "CUSTOMER_ID", updatable = false, nullable = false, referencedColumnName = "ID")
 	public Customer getCustomer() {
 		return customer;

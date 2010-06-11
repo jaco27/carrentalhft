@@ -45,6 +45,16 @@ public final class SessionManager {
 		return session;
 	}
 
+	public void closeSession() {
+		if (session == null) {
+			return;
+		}
+
+		session.flush();
+		session.close();
+		session = null;
+	}
+
 	public void dispose() {
 		sessionFactory.close();
 	}

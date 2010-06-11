@@ -117,7 +117,7 @@ public final class LoginSection extends WindowPageSection implements
 		tr.commit();
 
 		getWindowPage().getWindow().setVisible(false);
-		new MainWindow(user, session);
+		new MainWindow(user);
 	}
 
 	@Override

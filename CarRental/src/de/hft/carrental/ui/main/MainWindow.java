@@ -9,8 +9,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import org.hibernate.Session;
-
+import de.hft.carrental.database.SessionManager;
 import de.hft.carrental.domain.Customer;
 import de.hft.carrental.ui.Window;
 import de.hft.carrental.ui.main.bookings.CurrentBookingsPage;
@@ -55,12 +54,8 @@ public final class MainWindow extends Window implements ActionListener {
 
 	private final Customer loggedInUser;
 
-	private final Session session;
-
-	public MainWindow(Customer user, Session session) {
+	public MainWindow(Customer user) {
 		super();
-
-		this.session = session;
 
 		loggedInUser = user;
 
@@ -158,7 +153,7 @@ public final class MainWindow extends Window implements ActionListener {
 	 * Logs the current user out and shows the login screen yet again.
 	 */
 	private void logout() {
-		session.flush();
+		SessionManager.getInstance().closeSession();
 		setVisible(false);
 		new SplashWindow();
 	}

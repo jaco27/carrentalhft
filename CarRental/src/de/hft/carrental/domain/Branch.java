@@ -34,7 +34,7 @@ public final class Branch {
 		return name;
 	}
 
-	@ManyToOne(cascade = CascadeType.ALL, optional = false, targetEntity = Agency.class)
+	@ManyToOne(optional = false, targetEntity = Agency.class)
 	@JoinColumn(name = "AGENCY_ID", updatable = false, nullable = false, referencedColumnName = "ID")
 	public Agency getAgency() {
 		return agency;

@@ -2,7 +2,6 @@ package de.hft.carrental.domain;
 
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -44,19 +43,19 @@ public final class Booking {
 		return returnDate;
 	}
 
-	@ManyToOne(cascade = CascadeType.ALL, optional = false, targetEntity = Customer.class)
+	@ManyToOne(optional = false, targetEntity = Customer.class)
 	@JoinColumn(name = "CUSTOMER_ID", updatable = false, nullable = false, referencedColumnName = "ID")
 	public Customer getCustomer() {
 		return customer;
 	}
 
-	@ManyToOne(cascade = CascadeType.ALL, optional = false, targetEntity = Agency.class)
+	@ManyToOne(optional = false, targetEntity = Agency.class)
 	@JoinColumn(name = "AGENCY_ID", updatable = false, nullable = false, referencedColumnName = "ID")
 	public Agency getAgency() {
 		return agency;
 	}
 
-	@ManyToOne(cascade = CascadeType.ALL, optional = false, targetEntity = Car.class)
+	@ManyToOne(optional = false, targetEntity = Car.class)
 	@JoinColumn(name = "CAR_ID", updatable = false, nullable = false, referencedColumnName = "ID")
 	public Car getCar() {
 		return car;
