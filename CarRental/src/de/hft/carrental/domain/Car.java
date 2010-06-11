@@ -60,13 +60,13 @@ public final class Car {
 		return registrationNumber;
 	}
 
-	@ManyToOne(cascade = CascadeType.ALL, optional = false, targetEntity = CarType.class)
+	@ManyToOne(optional = false, targetEntity = CarType.class)
 	@JoinColumn(name = "CAR_TYPE_ID", updatable = false, nullable = false, referencedColumnName = "ID")
 	public CarType getCarType() {
 		return carType;
 	}
 
-	@ManyToOne(cascade = CascadeType.ALL, optional = false, targetEntity = Branch.class)
+	@ManyToOne(optional = false, targetEntity = Branch.class)
 	@JoinColumn(name = "BRANCH_ID", updatable = true, nullable = false, referencedColumnName = "ID")
 	public Branch getBranch() {
 		return branch;

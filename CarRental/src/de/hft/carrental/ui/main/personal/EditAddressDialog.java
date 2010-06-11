@@ -22,20 +22,25 @@ public class EditAddressDialog extends BaseAddressDialog {
 	private JButton previous = new JButton("Previous");
 	private JButton next = new JButton("Next");
 	private JButton save = new JButton("Save");
+	private JButton delete = new JButton("Delete");
 
-	private List<CustomerAddress> addresses = new ArrayList<CustomerAddress>();
+	private List<CustomerAddress> addressList = new ArrayList<CustomerAddress>();
 	private int pos = 0;
 
 	private KeyListener cl = new ChangeListener();
 
 	public EditAddressDialog(Set<CustomerAddress> addresses) {
-		this.addresses.addAll(addresses);
+		addressList.addAll(addresses);
 
 		setTitle("Edit address details:");
 		addButtons();
 		addButtonActions();
 		addListeners();
 		fillFields(pos);
+
+		if (addressList.size() == 1) {
+			delete.setEnabled(false);
+		}
 
 		pack();
 		int posX = Toolkit.getDefaultToolkit().getScreenSize().width / 2
@@ -50,14 +55,15 @@ public class EditAddressDialog extends BaseAddressDialog {
 
 	public Set<CustomerAddress> getAddresses() {
 		Set<CustomerAddress> tmp = new HashSet<CustomerAddress>();
-		tmp.addAll(addresses);
+		tmp.addAll(addressList);
 		return tmp;
 	}
 
 	private void addButtons() {
 		add(previous, "split 2, align left");
 		add(next);
-		add(save, "split 2, align right");
+		add(save, "split 3, align right");
+		add(delete);
 		add(close);
 	}
 
@@ -66,7 +72,7 @@ public class EditAddressDialog extends BaseAddressDialog {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				fillFields(pos++);
+				fillFields(++pos);
 			}
 		});
 
@@ -74,7 +80,7 @@ public class EditAddressDialog extends BaseAddressDialog {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				fillFields(pos--);
+				fillFields(--pos);
 			}
 		});
 
@@ -90,25 +96,34 @@ public class EditAddressDialog extends BaseAddressDialog {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				addresses.get(pos).setStreetName(streetField.getText());
-				addresses.get(pos).setStreetNumber(numberField.getText());
-				addresses.get(pos).setPostalCode(postalField.getText());
-				addresses.get(pos).setCityName(cityField.getText());
-				addresses.get(pos).setCountry(countryField.getText());
-				addresses.get(pos).setPhoneNumber(phoneField.getText());
+				addressList.get(pos).setStreetName(streetField.getText());
+				addressList.get(pos).setStreetNumber(numberField.getText());
+				addressList.get(pos).setPostalCode(postalField.getText());
+				addressList.get(pos).setCityName(cityField.getText());
+				addressList.get(pos).setCountry(countryField.getText());
+				addressList.get(pos).setPhoneNumber(phoneField.getText());
 
 				save.setEnabled(false);
+			}
+		});
+
+		delete.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				addressList.remove(pos);
+				setVisible(false);
 			}
 		});
 	}
 
 	private void fillFields(int pos) {
-		streetField.setText(addresses.get(pos).getStreetName());
-		numberField.setText(addresses.get(pos).getStreetNumber());
-		postalField.setText(addresses.get(pos).getPostalCode());
-		cityField.setText(addresses.get(pos).getCityName());
-		countryField.setText(addresses.get(pos).getCountry());
-		phoneField.setText(addresses.get(pos).getPhoneNumber());
+		streetField.setText(addressList.get(pos).getStreetName());
+		numberField.setText(addressList.get(pos).getStreetNumber());
+		postalField.setText(addressList.get(pos).getPostalCode());
+		cityField.setText(addressList.get(pos).getCityName());
+		countryField.setText(addressList.get(pos).getCountry());
+		phoneField.setText(addressList.get(pos).getPhoneNumber());
 
 		checkPreviousNext();
 	}
@@ -120,7 +135,7 @@ public class EditAddressDialog extends BaseAddressDialog {
 			previous.setEnabled(true);
 		}
 
-		if (pos + 1 == addresses.size()) {
+		if (pos + 1 == addressList.size()) {
 			next.setEnabled(false);
 		} else {
 			next.setEnabled(true);
