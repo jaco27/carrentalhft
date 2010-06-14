@@ -106,10 +106,15 @@ public class EditAddressDialog extends BaseAddressDialog implements
 	}
 
 	private void addListeners() {
+		close.setActionCommand(AC_CLOSE_DIALOG);
 		close.addActionListener(this);
+		previous.setActionCommand(AC_PREVIOUS_ADDRESS);
 		previous.addActionListener(this);
+		next.setActionCommand(AC_NEXT_ADDRESS);
 		next.addActionListener(this);
+		save.setActionCommand(AC_SAVE_CHANGES);
 		save.addActionListener(this);
+		save.setActionCommand(AC_DELETE_ADDRESS);
 		delete.addActionListener(this);
 
 		streetField.addKeyListener(this);

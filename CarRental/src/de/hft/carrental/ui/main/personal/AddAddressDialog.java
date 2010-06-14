@@ -70,7 +70,9 @@ public class AddAddressDialog extends BaseAddressDialog implements KeyListener,
 	}
 
 	private void addListeners() {
+		addButton.setActionCommand(AC_ADD_ADDRESS);
 		addButton.addActionListener(this);
+		closeButton.setActionCommand(AC_CLOSE_DIALOG);
 		closeButton.addActionListener(this);
 
 		streetField.addKeyListener(this);
