@@ -1,9 +1,14 @@
 package de.hft.carrental.ui.main;
 
-import javax.swing.BoxLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+
+import de.hft.carrental.ui.util.GridBagUtil;
 
 /**
  * This abstract class provides a section that contains a table. This table can
@@ -17,10 +22,10 @@ public abstract class TableSection extends MainWindowPageSection {
 	private static final long serialVersionUID = 8789403383980546612L;
 
 	/** The Swing table UI widget. */
-	private final JTable table;
+	private JTable table;
 
 	/** The table model that manages the data of the table. */
-	private final DefaultTableModel tableModel;
+	private DefaultTableModel tableModel;
 
 	/**
 	 * @param page
@@ -39,7 +44,15 @@ public abstract class TableSection extends MainWindowPageSection {
 		super(page, title);
 
 		createLayout();
+		beforeCreateTable();
+		createTable(columnNames, columnWidths);
+	}
 
+	protected void beforeCreateTable() {
+		// Empty default implementation.
+	}
+
+	private void createTable(String[] columnNames, int[] columnWidths) {
 		tableModel = new DefaultTableModel();
 		for (String columnName : columnNames) {
 			tableModel.addColumn(columnName);
@@ -52,12 +65,17 @@ public abstract class TableSection extends MainWindowPageSection {
 		}
 		JTableHeader tableHeader = table.getTableHeader();
 		tableHeader.getColumnModel().setColumnMargin(columnMargin);
-		add(tableHeader);
-		add(table);
+		add(tableHeader, GridBagUtil.createGridBagConstraints(0, 1, 1, 0,
+				GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0),
+				GridBagConstraints.FIRST_LINE_START, 0, 0));
+		add(table, GridBagUtil.createGridBagConstraints(0, 2, 1, 1,
+				GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0),
+				GridBagConstraints.FIRST_LINE_START, 0, 0));
 	}
 
 	protected void createLayout() {
-		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		GridBagLayout layout = new GridBagLayout();
+		setLayout(layout);
 	}
 
 	/**

@@ -16,6 +16,7 @@ import de.hft.carrental.ui.main.bookings.CurrentBookingsPage;
 import de.hft.carrental.ui.main.cars.CarsPage;
 import de.hft.carrental.ui.main.personal.PersonalPage;
 import de.hft.carrental.ui.splash.SplashWindow;
+import de.hft.carrental.ui.util.GridBagUtil;
 
 /**
  * The main window is the application's window that appears after the login was
@@ -104,7 +105,7 @@ public final class MainWindow extends Window implements ActionListener {
 		logoutButton.setIcon(new ImageIcon("images/logout.png"));
 		menuPanel.add(logoutButton);
 
-		add(menuPanel, createGridBagConstraints(0, 0, 1, 0,
+		add(menuPanel, GridBagUtil.createGridBagConstraints(0, 0, 1, 0,
 				GridBagConstraints.BOTH, new Insets(0, 0, 0, 0),
 				GridBagConstraints.FIRST_LINE_START, 0, 0));
 	}
