@@ -12,7 +12,12 @@ import de.hft.carrental.ui.main.MainWindowPage;
 import de.hft.carrental.ui.main.TableSection;
 
 // TODO AW: Class yet to be implemented.
-public final class AddressesSection extends TableSection {
+public final class AddressesSection extends TableSection implements
+		ActionListener {
+
+	private static final String AC_ADD_ADDRESS = "add_address";
+
+	private static final String AC_EDIT_ADDRESS = "edit_address";
 
 	private static final long serialVersionUID = -1627894704897348854L;
 
@@ -25,6 +30,7 @@ public final class AddressesSection extends TableSection {
 			140, 150 };
 
 	private JButton add = new JButton("Add");
+
 	private JButton edit = new JButton("Edit");
 
 	protected AddressesSection(MainWindowPage page) {
@@ -32,7 +38,7 @@ public final class AddressesSection extends TableSection {
 
 		add(add);
 		add(edit);
-		addButtonActions();
+		addListeners();
 	}
 
 	@Override
@@ -41,43 +47,11 @@ public final class AddressesSection extends TableSection {
 		fillTable();
 	}
 
-	private void addButtonActions() {
-		add.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				AddAddressDialog ad = new AddAddressDialog(getLoggedInUser());
-
-				if (ad.addressAdded()) {
-					getLoggedInUser().getCustomerAddresses().add(
-							ad.getNewCustomerAddress());
-					refresh();
-				}
-			}
-		});
-
-		edit.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				EditAddressDialog ed = new EditAddressDialog(getLoggedInUser()
-						.getCustomerAddresses());
-				// getLoggedInUser().setCustomerAddresses(ed.getAddresses());
-				if (ed.getAddresses().size() == getLoggedInUser()
-						.getCustomerAddresses().size()) {
-					getLoggedInUser().setCustomerAddresses(ed.getAddresses());
-				} else {
-					Set<CustomerAddress> customerAddresses = new HashSet<CustomerAddress>(
-							getLoggedInUser().getCustomerAddresses());
-					customerAddresses.removeAll(ed.getAddresses());
-					CustomerAddress[] array = customerAddresses
-							.toArray(new CustomerAddress[1]);
-					CustomerAddress address = array[0];
-					getLoggedInUser().getCustomerAddresses().remove(address);
-				}
-				refresh();
-			}
-		});
+	private void addListeners() {
+		add.setActionCommand(AC_ADD_ADDRESS);
+		add.addActionListener(this);
+		edit.setActionCommand(AC_EDIT_ADDRESS);
+		edit.addActionListener(this);
 	}
 
 	private void fillTable() {
@@ -91,6 +65,38 @@ public final class AddressesSection extends TableSection {
 			row[5] = address.getPhoneNumber();
 
 			addDataRow(row);
+		}
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		String actionCommand = e.getActionCommand();
+
+		if (actionCommand.equals(AC_ADD_ADDRESS)) {
+			AddAddressDialog ad = new AddAddressDialog(getLoggedInUser());
+
+			if (ad.addressAdded()) {
+				getLoggedInUser().getCustomerAddresses().add(
+						ad.getNewCustomerAddress());
+				refresh();
+			}
+		} else if (actionCommand.equals(AC_EDIT_ADDRESS)) {
+			EditAddressDialog ed = new EditAddressDialog(getLoggedInUser()
+					.getCustomerAddresses());
+
+			if (ed.getAddresses().size() == getLoggedInUser()
+					.getCustomerAddresses().size()) {
+				getLoggedInUser().setCustomerAddresses(ed.getAddresses());
+			} else {
+				Set<CustomerAddress> customerAddresses = new HashSet<CustomerAddress>(
+						getLoggedInUser().getCustomerAddresses());
+				customerAddresses.removeAll(ed.getAddresses());
+				CustomerAddress[] array = customerAddresses
+						.toArray(new CustomerAddress[1]);
+				CustomerAddress address = array[0];
+				getLoggedInUser().getCustomerAddresses().remove(address);
+			}
+			refresh();
 		}
 	}
 }
