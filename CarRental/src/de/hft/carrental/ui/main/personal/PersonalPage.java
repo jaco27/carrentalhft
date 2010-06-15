@@ -3,7 +3,6 @@ package de.hft.carrental.ui.main.personal;
 import de.hft.carrental.ui.main.MainWindow;
 import de.hft.carrental.ui.main.MainWindowPage;
 
-//TODO AW: Class yet to be implemented.
 public final class PersonalPage extends MainWindowPage {
 
 	private static final long serialVersionUID = -5215876430603142614L;

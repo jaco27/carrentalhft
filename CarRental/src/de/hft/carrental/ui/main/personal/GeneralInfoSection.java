@@ -13,11 +13,15 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import net.miginfocom.swing.MigLayout;
+
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+import de.hft.carrental.database.SessionManager;
 import de.hft.carrental.domain.Customer;
 import de.hft.carrental.ui.main.MainWindowPage;
 import de.hft.carrental.ui.main.MainWindowPageSection;
 
-//TODO AW: Class yet to be implemented.
 public final class GeneralInfoSection extends MainWindowPageSection implements
 		ActionListener, KeyListener {
 
@@ -130,7 +134,11 @@ public final class GeneralInfoSection extends MainWindowPageSection implements
 		String actionCommand = e.getActionCommand();
 
 		if (actionCommand.equals(AC_SAVE_CHANGES)) {
+			Session session = SessionManager.getInstance().openSession();
+			Transaction transaction = session.beginTransaction();
 			user.setEmail(emailField.getText());
+			session.save(user);
+			transaction.commit();
 			saveChangesButton.setEnabled(false);
 		}
 	}
@@ -149,4 +157,5 @@ public final class GeneralInfoSection extends MainWindowPageSection implements
 	public void keyTyped(KeyEvent e) {
 		saveChangesButton.setEnabled(true);
 	}
+
 }
