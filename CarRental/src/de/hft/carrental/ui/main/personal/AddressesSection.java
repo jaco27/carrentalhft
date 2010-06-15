@@ -7,11 +7,14 @@ import java.util.Set;
 
 import javax.swing.JButton;
 
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+import de.hft.carrental.database.SessionManager;
 import de.hft.carrental.domain.CustomerAddress;
 import de.hft.carrental.ui.main.MainWindowPage;
 import de.hft.carrental.ui.main.TableSection;
 
-// TODO AW: Class yet to be implemented.
 public final class AddressesSection extends TableSection implements
 		ActionListener {
 
@@ -76,8 +79,12 @@ public final class AddressesSection extends TableSection implements
 			AddAddressDialog ad = new AddAddressDialog(getLoggedInUser());
 
 			if (ad.addressAdded()) {
+				Session session = SessionManager.getInstance().openSession();
+				Transaction transaction = session.beginTransaction();
 				getLoggedInUser().getCustomerAddresses().add(
 						ad.getNewCustomerAddress());
+				session.save(getLoggedInUser());
+				transaction.commit();
 				refresh();
 			}
 		} else if (actionCommand.equals(AC_EDIT_ADDRESS)) {
