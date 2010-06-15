@@ -114,7 +114,7 @@ public class EditAddressDialog extends BaseAddressDialog implements
 		next.addActionListener(this);
 		save.setActionCommand(AC_SAVE_CHANGES);
 		save.addActionListener(this);
-		save.setActionCommand(AC_DELETE_ADDRESS);
+		delete.setActionCommand(AC_DELETE_ADDRESS);
 		delete.addActionListener(this);
 
 		streetField.addKeyListener(this);
