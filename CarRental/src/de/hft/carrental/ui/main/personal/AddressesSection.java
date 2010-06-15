@@ -93,8 +93,13 @@ public final class AddressesSection extends TableSection implements
 
 			if (ed.getAddresses().size() == getLoggedInUser()
 					.getCustomerAddresses().size()) {
+				Session session = SessionManager.getInstance().openSession();
+				Transaction transaction = session.beginTransaction();
 				getLoggedInUser().setCustomerAddresses(ed.getAddresses());
+				transaction.commit();
 			} else {
+				Session session = SessionManager.getInstance().openSession();
+				Transaction transaction = session.beginTransaction();
 				Set<CustomerAddress> customerAddresses = new HashSet<CustomerAddress>(
 						getLoggedInUser().getCustomerAddresses());
 				customerAddresses.removeAll(ed.getAddresses());
@@ -102,6 +107,7 @@ public final class AddressesSection extends TableSection implements
 						.toArray(new CustomerAddress[1]);
 				CustomerAddress address = array[0];
 				getLoggedInUser().getCustomerAddresses().remove(address);
+				transaction.commit();
 			}
 			refresh();
 		}

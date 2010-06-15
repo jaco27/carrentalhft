@@ -36,12 +36,13 @@ public final class SessionManager {
 	}
 
 	public Session openSession() {
-		if (session == null) {
+		if ((session == null) || !session.isOpen()) {
 			if (!(isDatabaseConnectionAvailable())) {
 				return null;
 			}
 			session = sessionFactory.openSession();
 		}
+
 		return session;
 	}
 
@@ -52,7 +53,6 @@ public final class SessionManager {
 
 		session.flush();
 		session.close();
-		session = null;
 	}
 
 	public void dispose() {
