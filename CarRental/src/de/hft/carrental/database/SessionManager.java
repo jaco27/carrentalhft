@@ -53,6 +53,7 @@ public final class SessionManager {
 
 		session.flush();
 		session.close();
+		session = null;
 	}
 
 	public void dispose() {
