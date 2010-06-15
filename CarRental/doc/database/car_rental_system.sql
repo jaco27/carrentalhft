@@ -53,14 +53,15 @@ CREATE TABLE `booking` (
   `CAR_ID` int(11) NOT NULL,
   `BOOKING_DATE` date NOT NULL,
   `RETURN_DATE` date NOT NULL,
+  `TIME_STAMP` varchar(19) NOT NULL DEFAULT '',
   PRIMARY KEY (`BOOKING_NUMBER`),
   KEY `fk_Order_Customer1` (`CUSTOMER_ID`),
   KEY `fk_Order_Agency1` (`AGENCY_ID`),
   KEY `fk_Order_Car1` (`CAR_ID`),
-  CONSTRAINT `fk_Order_Customer1` FOREIGN KEY (`CUSTOMER_ID`) REFERENCES `customer` (`ID`) ON UPDATE CASCADE,
   CONSTRAINT `fk_Order_Agency1` FOREIGN KEY (`AGENCY_ID`) REFERENCES `agency` (`ID`) ON UPDATE CASCADE,
-  CONSTRAINT `fk_Order_Car1` FOREIGN KEY (`CAR_ID`) REFERENCES `car` (`ID`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+  CONSTRAINT `fk_Order_Car1` FOREIGN KEY (`CAR_ID`) REFERENCES `car` (`ID`) ON UPDATE CASCADE,
+  CONSTRAINT `fk_Order_Customer1` FOREIGN KEY (`CUSTOMER_ID`) REFERENCES `customer` (`ID`) ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -69,9 +70,50 @@ CREATE TABLE `booking` (
 
 LOCK TABLES `booking` WRITE;
 /*!40000 ALTER TABLE `booking` DISABLE KEYS */;
-INSERT INTO `booking` VALUES (1,1,1,1,'2002-01-01','2002-02-01'),(2,2,1,2,'2009-04-22','2009-04-23'),(3,3,2,1,'2003-02-02','2003-02-20'),(4,4,2,2,'1945-05-20','1945-05-21');
+INSERT INTO `booking` VALUES (1,1,1,1,'2002-01-01','2002-02-01','2010-06-15 20:10:03'),(2,2,1,2,'2009-04-22','2009-04-23','2010-06-15 20:10:03'),(3,3,2,1,'2003-02-02','2003-02-20','2010-06-15 20:10:03'),(4,4,2,2,'1945-05-20','1945-05-21','2010-06-15 20:10:03'),(8,1,1,4,'3000-02-03','3002-03-03','2010-06-15 20:10:03'),(9,1,2,3,'2002-02-02','2002-02-03','2010-06-15 20:10:03'),(10,1,2,4,'2002-02-03','2002-02-04','2010-06-15 20:12:25');
 /*!40000 ALTER TABLE `booking` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `carrental`.`INSERT_TRIGGER`
+BEFORE INSERT ON `carrental`.`booking`
+FOR EACH ROW
+BEGIN
+    SET NEW.TIME_STAMP = NOW();
+    INSERT INTO LOGGING(MESSAGE) VALUES ('New booking was inserted.');
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,TRADITIONAL,NO_AUTO_CREATE_USER' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER DELETE_TRIGGER
+    AFTER DELETE ON BOOKING
+    FOR EACH ROW
+BEGIN
+    INSERT INTO LOGGING(MESSAGE) VALUES ('Booking was deleted.');
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `branch`
@@ -242,7 +284,7 @@ CREATE TABLE `customer_address` (
   PRIMARY KEY (`ID`),
   KEY `fk_CUSTOMER_ADDRESS_CUSTOMER1` (`CUSTOMER_ID`),
   CONSTRAINT `fk_CUSTOMER_ADDRESS_CUSTOMER1` FOREIGN KEY (`CUSTOMER_ID`) REFERENCES `customer` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -251,8 +293,32 @@ CREATE TABLE `customer_address` (
 
 LOCK TABLES `customer_address` WRITE;
 /*!40000 ALTER TABLE `customer_address` DISABLE KEYS */;
-INSERT INTO `customer_address` VALUES (1,'Alex Street','Alex City','22','302420','Germany','03023023',1),(2,'Matthias Street','Matthias City','11','3254','Germany','23443',2),(3,'Priya Street','Priya City','23','347687','India','6436547',3),(4,'Radhika Street','Radhika City','443','8673','India','5434',4),(5,'HFT Street','HFT City','32a','6342','Germany','3423 / 3432',5);
+INSERT INTO `customer_address` VALUES (2,'Matthias Street','Matthias City','11','3254','Germany','23443',2),(3,'Priya Street','Priya City','23','347687','India','6436547',3),(4,'Radhika Street','Radhika City','443','8673','India','5434',4),(5,'HFT Street','HFT City','32a','6342','Germany','3423 / 3432',5);
 /*!40000 ALTER TABLE `customer_address` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `logging`
+--
+
+DROP TABLE IF EXISTS `logging`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `logging` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `MESSAGE` text,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `logging`
+--
+
+LOCK TABLES `logging` WRITE;
+/*!40000 ALTER TABLE `logging` DISABLE KEYS */;
+INSERT INTO `logging` VALUES (1,'Booking was deleted.'),(2,'New booking was inserted.'),(3,'New booking was inserted.');
+/*!40000 ALTER TABLE `logging` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -264,4 +330,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2010-06-06 15:35:39
+-- Dump completed on 2010-06-15 20:16:09
