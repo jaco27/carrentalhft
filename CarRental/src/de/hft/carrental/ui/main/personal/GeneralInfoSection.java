@@ -120,6 +120,7 @@ public final class GeneralInfoSection extends MainWindowPageSection implements
 	}
 
 	private void addListeners() {
+		saveChangesButton.setActionCommand(AC_SAVE_CHANGES);
 		saveChangesButton.addActionListener(this);
 		emailField.addKeyListener(this);
 	}
